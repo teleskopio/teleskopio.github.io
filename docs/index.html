@@ -5,14 +5,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>teleskopio.github.io</title>
 		<meta name="description" content="teleskopio is an open-source small and beautiful Web Kubernetes client.">
+
+		<link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 		
 		
 		
-		<style>/* This is an arbitrary CSS string added to the bundle */
+		<style>
+			/* This is an arbitrary CSS string added to the bundle */
 /* Defaults */
+
 :root {
-	--font-family: -apple-system, system-ui, sans-serif;
-	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	--font-family: "Roboto", sans-serif;
+	--font-family-monospace: "Iosevka Web", monospace;
 }
 
 /* Theme colors */
@@ -21,14 +26,26 @@
 	--color-gray-50: #C0C0C0;
 	--color-gray-90: #333;
 
-	--background-color: #fff;
+	--background-color: #ffffff;
+
+	--card-background-color: #ffffff;
+
+	--color-code-gray-90: #494949;
+	--color-code-gray-30: #dcdcdc;
 
 	--text-color: var(--color-gray-90);
-	--text-color-link: #082840;
+	--text-color-link: #45a2ea;
 	--text-color-link-active: #5f2b48;
-	--text-color-link-visited: #17050F;
+	--text-color-link-visited: #735063;
 
 	--syntax-tab-size: 2;
+
+	code:not(pre code) {
+		background-color: var(--color-code-gray-90);
+		color: var(--color-code-gray-30);
+		word-break: break-all;
+	    border-radius: 2px;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,12 +54,29 @@
 		--color-gray-50: #C0C0C0;
 		--color-gray-90: #dad8d8;
 
+
+		--color-code-gray-90: #676767;
+		--color-code-gray-30: #dcdcdc;
+
+		--card-background-color: #364253;
+
 		/* --text-color is assigned to --color-gray-_ above */
-		--text-color-link: #1493fb;
-		--text-color-link-active: #6969f7;
-		--text-color-link-visited: #a6a6f8;
+		--text-color-link: #bbbbbb;
+		--text-color-link-active: #818181;
+		--text-color-link-visited: #19a4e9;
 
 		--background-color: #15202b;
+	}
+
+	.github, .linkedin, .stackoverflow, .rss {
+		fill: white;
+	}
+
+	code:not(pre code) {
+		background-color: var(--color-code-gray-90);
+		color: var(--color-code-gray-30);
+		word-break: break-all;
+		border-radius: 2px;
 	}
 }
 
@@ -310,6 +344,15 @@ header {
 .small {
 	font-size: 12px;
 }
+
+heading-anchors > details > ul {
+  padding-left: 1em;
+}
+
+.github-link {
+	display: flex;
+	justify-content: center;
+}
 /* Message Box */
 .message-box {
 	--color-message-box: #ffc;
@@ -317,7 +360,7 @@ header {
 	display: block;
 	background-color: var(--color-message-box);
 	color: var(--color-gray-90);
-	padding: 1em 0.625em; /* 16px 10px /16 */
+	padding: 0.5em 0.625em; /* 16px 10px /16 */
 }
 .message-box ol {
 	margin-top: 0;
@@ -327,7 +370,8 @@ header {
 	.message-box {
 		--color-message-box: #082840;
 	}
-}</style>
+}
+		</style>
 		
 	</head>
 	<body>
@@ -338,8 +382,20 @@ header {
 			<nav>
 				<h2 class="visually-hidden" id="top-level-navigation-menu">Top level navigation menu</h2>
 				<ul class="nav">
-					<li class="nav-item"><a href="/" aria-current="page">Releases</a></li>
-					<li class="nav-item"><a href="/blog/">Archive</a></li>
+						<li class="nav-item">
+							<a href="/" aria-current="page"></a>
+						</li>
+						<li class="nav-item">
+							<a href="/install/">install</a>
+						</li>
+						<li class="nav-item">
+							<a href="/releases/">how-tos</a>
+						</li>
+					<li class="nav-item github-link">
+						<a href="https://github.com/teleskopio/teleskopio" target="_blank" title="@teleskopio on GitHub">
+							<svg class="github" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+						</a>
+					</li>
 				</ul>
 			</nav>
 		</header>
@@ -349,41 +405,60 @@ header {
 				<!-- Delete this block, which will also remove the component CSS from the bundle -->
 
 <div class="message-box">
-	<p><em>Please note: This is a work in progress. You may encounter bugs or unexpected behavior.</em></p>
+	<p>
+		<em class="small">This is a <b>beta</b> version. Information may be inaccurate or incomplete, and the software is provided "as is." We assume no liability for any issues arising from its use.</em>
+	</p>
 </div>
 <!-- Stop deleting -->
 
 
-
-<h1 id="latest-1-post">Latest 1 Post</h1>
-
-
-
-<ol reversed="" class="postlist" style="--postlist-index: 2">
-	<li class="postlist-item">
-		<a href="/blog/releasepost/" class="postlist-link">Happy release v0.1.2!</a>
-		<time class="postlist-date" datetime="2025-01-05">January 2025</time>
-	</li>
-</ol>
-
-
-
-
-
-
-
-
+<h3 id="features">Features</h3>
+<ul>
+<li>Multiple configs support - switch between clusters effortlessly. teleskopio reads <code>$KUBECONFIG</code> variable and check <code>config.yaml</code> file.</li>
+<li>Simple JWT token authorization.</li>
+<li>Admin and Viewer role - Full access (admin) or Read Only access (viewer) to cluster.</li>
+<li>Cluster overview - get a high-level view of cluster health and activity.</li>
+<li>Resource editor/creator - integrated <a href="https://microsoft.github.io/monaco-editor/">Monaco Editor</a> with syntax highlighting.</li>
+<li>Live updates - real-time resource changes with Kubernetes watchers.</li>
+<li><code>Pod</code> logs and events - inspect logs and event history directly in the UI.</li>
+<li>Owner links - navigate from a resource to its owner.</li>
+<li><code>CRD</code> - custom resource definition editor.</li>
+<li>Multiple font options - customize the UI appearance.</li>
+<li>Manual <code>CronJob</code> triggering</li>
+<li>Scale resources (<code>Deployments</code>, <code>ReplicaSets</code>)</li>
+<li>Filter <code>CTRL + F</code> any resource.</li>
+<li>Jump to section <code>CTRL + J</code> any menu.</li>
+<li>Objects multi-select operations (delete, drain, cordon, e.t.c.)</li>
+<li>Kubernetes <a href="https://github.com/yannh/kubernetes-json-schema?tab=readme-ov-file#kubernetes-json-schemas">resource schemas</a> per API version.</li>
+<li>Light and dark themes.</li>
+</ul>
+<h3 id="stack">Stack</h3>
+<ul>
+<li><strong>Golang</strong> - Kubernetes golang client.</li>
+<li><strong>React</strong> - responsive and modern frontend.</li>
+<li><strong><a href="https://ui.shadcn.com/">shadcn/ui</a></strong> + <strong>Tailwind CSS</strong> - clean and flexible UI components.</li>
+<li><strong><a href="https://lucide.dev/">lucide.dev</a></strong> - Beautiful &amp; consistent icons.</li>
+<li><strong><a href="https://microsoft.github.io/monaco-editor/">Monaco Editor</a></strong> - powerful code editor with syntax highlighting.</li>
+<li><strong>Dynamic resources</strong> - auto-loading resources for flexible navigation.</li>
+<li><strong>Kubernetes watchers</strong> - instant updates from the cluster.</li>
+</ul>
+<h3 id="planned-features">Planned Features</h3>
+<ul>
+<li>Helm integration. <a href="https://github.com/teleskopio/teleskopio/issues/11">issue</a></li>
+<li>Resource metrics - CPU, memory, and other usage statistics.</li>
+</ul>
 
 			</heading-anchors>
 		</main>
 
 		<footer>
 			<p class="small">
-				<em>Built with <a href="https://www.11ty.dev/">Eleventy v3.1.2</a></em>
+				<em>Built with <a href="https://www.11ty.dev/">Eleventy v3.1.2</a>
+				</em>
 			</p>
 		</footer>
 
-		<!-- This page `/` was built on 2026-01-05T16:18:16.304Z -->
+		<!-- This page `/` was built on 2026-01-05T18:40:45.333Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 	</body>
 </html>

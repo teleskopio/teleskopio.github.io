@@ -1,29 +1,47 @@
 ---js
 const eleventyNavigation = {
-	key: "Releases",
+	key: "",
 	order: 1
 };
 
-const numberOfLatestPostsToShow = 3;
+const numberOfLatestPostsToShow = 5;
 ---
-{% set postsCount = collections.posts | length %}
-{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
 
-{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
-{% set postslistCounter = postsCount %}
-{% include "postslist.njk" %}
+{% renderTemplate "md" %}
 
-{% set morePosts = postsCount - numberOfLatestPostsToShow %}
-{% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="blog.njk">the archive</a>.</p>
-{% endif %}
+### Features
 
-{# List every content page in the project #}
-{#
-<ul>
-	{%- for entry in collections.all %}
-	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
-	{%- endfor %}
-</ul>
-#}
+- Multiple configs support - switch between clusters effortlessly. teleskopio reads `$KUBECONFIG` variable and check `config.yaml` file.
+- Simple JWT token authorization.
+- Admin and Viewer role - Full access (admin) or Read Only access (viewer) to cluster.
+- Cluster overview - get a high-level view of cluster health and activity.
+- Resource editor/creator - integrated [Monaco Editor](https://microsoft.github.io/monaco-editor/) with syntax highlighting.
+- Live updates - real-time resource changes with Kubernetes watchers.
+- `Pod` logs and events - inspect logs and event history directly in the UI.
+- Owner links - navigate from a resource to its owner.
+- `CRD` - custom resource definition editor.
+- Multiple font options - customize the UI appearance.
+- Manual `CronJob` triggering
+- Scale resources (`Deployments`, `ReplicaSets`)
+- Filter `CTRL + F` any resource.
+- Jump to section `CTRL + J` any menu.
+- Objects multi-select operations (delete, drain, cordon, e.t.c.)
+- Kubernetes [resource schemas](https://github.com/yannh/kubernetes-json-schema?tab=readme-ov-file#kubernetes-json-schemas) per API version.
+- Light and dark themes.
+
+### Stack
+
+- **Golang** - Kubernetes golang client.
+- **React** - responsive and modern frontend.
+- **[shadcn/ui](https://ui.shadcn.com/)** + **Tailwind CSS** - clean and flexible UI components.
+- **[lucide.dev](https://lucide.dev/)** - Beautiful & consistent icons.
+- **[Monaco Editor](https://microsoft.github.io/monaco-editor/)** - powerful code editor with syntax highlighting.
+- **Dynamic resources** - auto-loading resources for flexible navigation.
+- **Kubernetes watchers** - instant updates from the cluster.
+
+### Planned Features
+
+- Helm integration. [issue](https://github.com/teleskopio/teleskopio/issues/11)
+- Resource metrics - CPU, memory, and other usage statistics.
+
+{% endrenderTemplate %}

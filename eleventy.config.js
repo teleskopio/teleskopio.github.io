@@ -2,6 +2,7 @@ import {
 	IdAttributePlugin,
 	InputPathToUrlTransformPlugin,
 	HtmlBasePlugin,
+	RenderPlugin,
 } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
@@ -12,6 +13,7 @@ import pluginFilters from "./_config/filters.js";
 
 /** @param {import("@11ty/eleventy").UserConfig} eleventyConfig */
 export default async function (eleventyConfig) {
+	eleventyConfig.addPlugin(RenderPlugin);
 	// Drafts, see also _data/eleventyDataSchema.js
 	eleventyConfig.addPreprocessor("drafts", "*", (data, content) => {
 		if (data.draft) {

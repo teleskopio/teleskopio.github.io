@@ -1,0 +1,110 @@
+---js
+const eleventyNavigation = {
+	key: "install",
+	order: 2
+};
+---
+
+{% renderTemplate "md" %}
+
+## Install
+
+### Linux
+
+Download [release](https://github.com/teleskopio/teleskopio/releases).
+
+### MacOS
+
+Use brew (ARM and Intel):
+
+1. `brew tap roman-kiselenko/homebrew-teleskopio`
+1. `brew install --cask teleskopio`
+
+### Docker
+
+1. Pull docker image from [Packages](https://github.com/teleskopio/teleskopio/pkgs/container/teleskopio)
+
+```sh
+docker pull ghcr.io/teleskopio/teleskopio:latest
+```
+
+2. Generate config
+
+```sh
+docker run -it --rm ghcr.io/teleskopio/teleskopio:latest config > config.yaml
+```
+
+3. Edit config
+
+```sh
+$ htpasswd -nbB admin MySecret123 # apache2-utils
+> admin:$2y$05$U7puDu7wKOMP6i4eI1nO4ux909bH8FuPadEQq2oxx7SRXrBh3xJIG
+vim config.yaml # edit confAig and add admin user
+# add kubeconfig content to kube.configs
+# check example in config.yaml
+```
+
+4. Run
+
+Run with `--network=host` if you're using kind cluster
+
+```bash
+docker run -it --rm --network=host -p 3080:3080 \
+  -v $(pwd)/config.yaml:/usr/bin/config.yaml ghcr.io/teleskopio/teleskopio:latest \
+  --config=/usr/bin/config.yaml
+```
+
+Or run with docker network
+
+```bash
+docker run -it --rm -p 3080:3080 \
+  -v $(pwd)/config.yaml:/usr/bin/config.yaml ghcr.io/teleskopio/teleskopio:latest \
+  --config=/usr/bin/config.yaml
+5:47AM INF set loglevel level=DEBUG
+5:47AM INF version version=""
+5:47AM INF initialize web server addr=:3080
+...
+```
+
+### Config
+
+```yml
+log_color: false # Color output (only work with text)
+log_json: true # Output logs as JSON
+log_level: INFO # Log Level
+server_http: ":3080" # HTTP address
+jwt_key: "super-salt" # salt for JWT token
+auth_disabled: false # set to true to disable auth completly
+users:
+  - username: admin
+    password: "" # htpasswd -nbB admin MySecret123
+    role: "admin"
+  - username: user
+    password: ""
+    role: "viewer"
+kube:
+  configs:
+    # Paste content of ~/.kube/config
+    # or set KUBECONFIG env variable
+    - apiVersion: v1
+      clusters:
+        - cluster:
+            certificate-authority-data: LS0tLS1...
+            server: https://127.0.0.1:57598
+          name: kind-kind
+      contexts:
+        - context:
+            cluster: kind-kind
+            user: kind-kind
+          name: kind-kind
+      current-context: kind-kind
+      kind: Config
+      preferences: {}
+      users:
+        - name: kind-kind
+          user:
+            client-certificate-data: LS0tL...
+            client-key-data: LS0tL...
+```
+
+{% endrenderTemplate %}
