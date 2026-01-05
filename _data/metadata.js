@@ -1,5 +1,5 @@
 export default {
-	title: "teleskopio",
+	title: "teleskopio.github.io",
 	url: "https://teleskopio.github.io/",
 	language: "en",
 	description:

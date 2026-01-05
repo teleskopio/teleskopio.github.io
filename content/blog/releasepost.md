@@ -5,6 +5,22 @@ date: 2025-01-05
 tags: ["release", "v0.1.2"]
 ---
 
+### Features
+
+#### [Run](#run-2)
+
+#### [Deploy a Pod](#deploy-a-pod-2)
+
+#### [Multiselect](#multiselect-2)
+
+#### [Scale Resources](#scale-resources-2)
+
+#### [Cronjob](#cronjob-2)
+
+#### [Cordon and Drain](#cordon-and-drain-2)
+
+#### [Theme and Font](#theme-and-font-2)
+
 Let's observe `teleskopio` features.
 
 Requirements:
@@ -40,13 +56,16 @@ Have a nice day! 👋
 
 Now copy the content of `~/.kube/config` file or ensure the env variable `KUBECONFIG` is pointed to right place.
 
-Run `teleskopio config`, the [config](https://github.com/roman-kiselenko/teleskopio?tab=readme-ov-file#config) example will be printed to stdout.
+Run `teleskopio config`, the [config](https://github.com/teleskopio/teleskopio?tab=readme-ov-file#config) example will be printed to stdout.
 
 Generate a user with hashed password and add it to the `config.yaml`.
 
 ```shell
 > htpasswd -nbB admin MySecret12345
+$ admin:$2y$05$GUduJJ9FF.WA8J4zl4vJ4OfKuoszAPJ2iqMt6BcPoQ8kZ3wGy..n.
 ```
+
+#### Run
 
 Run `teleskopio --config=./config.yaml`.
 
@@ -54,17 +73,41 @@ Run `teleskopio --config=./config.yaml`.
 
 If everything is going good, you'll see the login screen, use `user/pass` from the `config.yaml`.
 
+#### Deploy a pod
+
 Let's deploy a pod to our cluster. Double click on pod. Check pod logs.
 
-<video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="open pod resource" src="deploy-pod.mp4"></video>
+<video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="open pod resource" src="deploy-pod.mp4"></video>
+
+#### Multiselect
 
 Now select a bunch of pods and delete it.
 
-<video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="delete pod resource" src="delete-pods.mp4"></video>
+<video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="delete pod resource" src="delete-pods.mp4"></video>
+
+#### Scale Resources
+
+Lets scale deployment, any resources which supports scale can be scaled.
+
+<video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="scale resources" src="scale.mp4"></video>
+
+#### Cronjob
+
+You can trigger cronjob.
+
+<video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="cronjobs" src="cronjobs.mp4"></video>
+
+#### Cordon and Drain
+
+You can cordon or drain node(s).
+
+<video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="cordon and drain" src="cordon.mp4"></video>
+
+#### Theme and Font
 
 Another cool feature is font and theme.
 
-<video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="theme and font" src="change-theme-font.mp4"></video>
+<video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="theme and font" src="change-theme-font.mp4"></video>
 
 That's a brief overview of the `teleskopio` features.
 
