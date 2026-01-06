@@ -202,6 +202,7 @@ code {
 	font-family: var(--font-family-monospace);
 }
 pre:not([class*="language-"]) {
+    font-family: var(--font-family-monospace);
 	margin: .5em 0;
 	line-height: 1.375; /* 22px /16 */
 	-moz-tab-size: var(--syntax-tab-size);
@@ -337,4 +338,40 @@ heading-anchors > details > ul {
 .github-link {
 	display: flex;
 	justify-content: center;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+    /* border-radius: 5px; */
+	white-space: nowrap;
+	padding: 2px 2px 2px 2px;
+    font-size: 0.8em;
+}
+code[class*="language-"] {
+	padding: 0px;
+}
+
+pre,
+code[class*="language-"] {
+	font-family: var(--font-family-monospace) !important;
+	line-height: 1; /* 22px /16 */
+    font-size: 0.9em;
+}
+
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.225; /* 22px /16 */
+	font-family: var(--font-family-monospace) !important;
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
 }
