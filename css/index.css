@@ -248,6 +248,12 @@ header {
 	margin: 0;
 	list-style: none;
 }
+
+ul.nav {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+}
 .nav-item {
 	display: inline-block;
 }
