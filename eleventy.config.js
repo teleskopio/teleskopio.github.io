@@ -4,7 +4,6 @@ import {
 	HtmlBasePlugin,
 	RenderPlugin,
 } from "@11ty/eleventy";
-import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import pluginSyntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import pluginNavigation from "@11ty/eleventy-navigation";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
@@ -34,7 +33,8 @@ export default async function (eleventyConfig) {
 		.addPassthroughCopy("./content/feed/pretty-atom-feed.xsl")
 		.addPassthroughCopy("content/**/*.mp4", {
 			mode: "html-relative",
-		});
+		})
+		.addPassthroughCopy("content/**/*.png");
 
 	// Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
@@ -72,9 +72,9 @@ export default async function (eleventyConfig) {
 	// Image optimization: https://www.11ty.dev/docs/plugins/image/#eleventy-transform
 	eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
 		// Output formats for each image.
-		formats: ["avif", "webp", "auto"],
+		formats: ["avif", "webp", "auto", "png"],
 
-		// widths: ["auto"],
+		widths: ["auto"],
 
 		failOnError: false,
 		htmlOptions: {

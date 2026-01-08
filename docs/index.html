@@ -390,6 +390,23 @@ pre:not([class*="language-"]) {
 	word-spacing: normal;
 	word-break: normal;
 }
+
+.media-main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  max-width: 600px;
+}
+
+.media-main img {
+  max-width: 150px;
+  height: auto;
+}
+
+.text-content {
+  flex: 1;
+}
 /**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
@@ -621,6 +638,13 @@ pre[class*="language-diff-"] {
 <!-- Stop deleting -->
 
 
+<div class="media-main">
+	<picture><source type="image/avif" srcset="/44SnPLUyNg-1024.avif 1024w"><source type="image/webp" srcset="/44SnPLUyNg-1024.webp 1024w"><img loading="eager" decoding="async" src="/44SnPLUyNg-1024.png" alt="teleskopio logo" width="1024" height="1024"></picture>
+	<div class="text-content">
+		<h3 id="teleskopio">teleskopio</h3>
+		<p>is an open-source small and beautiful Web Kubernetes client.</p>
+	</div>
+</div>
 <h3 id="features">Features</h3>
 <ul>
 <li>Multiple configs support - switch between clusters effortlessly. teleskopio reads <code>$KUBECONFIG</code> variable and check <code>config.yaml</code> file.</li>
@@ -668,7 +692,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>
 
-		<!-- This page `/` was built on 2026-01-07T08:21:00.196Z -->
+		<!-- This page `/` was built on 2026-01-08T13:28:59.504Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 	</body>
 </html>
