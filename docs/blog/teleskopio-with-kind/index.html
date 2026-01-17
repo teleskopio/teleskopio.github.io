@@ -640,14 +640,14 @@ pre[class*="language-diff-"] {
 <h4 id="cronjob"><a href="#cronjob-2">Cronjob</a></h4>
 <h4 id="cordon-and-drain"><a href="#cordon-and-drain-2">Cordon and Drain</a></h4>
 <h4 id="theme-and-font"><a href="#theme-and-font-2">Theme and Font</a></h4>
-<p>Let's observe <code>teleskopio</code> features.</p>
+<p>Let's explore the features of <code>teleskopio</code>.</p>
 <p>Requirements:</p>
 <ul>
-<li>kubernetes clusters with any version.</li>
+<li>Kubernetes clusters of any version.</li>
 <li><code>kubeconfig</code> of the cluster.</li>
 </ul>
-<p>That's it, we need only access to the cluster in order to run <code>teleskopio</code>.</p>
-<p>In this example I'm going to use <a href="https://kind.sigs.k8s.io/"><code>kind</code></a>, it's a very popular tools in kubernetes world (btw <code>kind</code> is used in the kubernetes e2e pipelines).</p>
+<p>That's it-we only need access to the cluster to run <code>teleskopio</code>.</p>
+<p>In this example I'm going to use <a href="https://kind.sigs.k8s.io/"><code>kind</code></a>, it's a very popular tool in the Kubernetes world (by the way <code>kind</code> is used in the Kubernetes e2e pipelines).</p>
 <blockquote>
 <p>kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
 kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.</p>
@@ -668,23 +668,23 @@ You can now use your cluster with:
 kubectl cluster-info <span class="token parameter variable">--context</span> kind-kind
 
 Have a <span class="token function">nice</span> day<span class="token operator">!</span> 👋</code></pre>
-<p>Now copy the content of <code>~/.kube/config</code> file or ensure the env variable <code>KUBECONFIG</code> is pointed to right place.</p>
-<p>Run <code>teleskopio config</code>, the <a href="https://github.com/teleskopio/teleskopio?tab=readme-ov-file#config">config</a> example will be printed to stdout.</p>
+<p>Now copy the contents of the <code>~/.kube/config</code> file or ensure the <code>KUBECONFIG</code> environment variable points to the correct location.</p>
+<p>Run <code>teleskopio config</code>, which prints a sample config to stdout.</p>
 <p>Generate a user with hashed password and add it to the <code>config.yaml</code>.</p>
 <pre class="language-shell" tabindex="0"><code class="language-shell"><span class="token operator">></span> htpasswd <span class="token parameter variable">-nbB</span> admin MySecret12345
 $ admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$GUduJJ9FF</span>.WA8J4zl4vJ4OfKuoszAPJ2iqMt6BcPoQ8kZ3wGy<span class="token punctuation">..</span>n.</code></pre>
 <h4 id="run-2">Run</h4>
 <p>Run <code>teleskopio --config=./config.yaml</code>.</p>
 <p><video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./login.mp4"></video></p>
-<p>If everything is going good, you'll see the login screen, use <code>user/pass</code> from the <code>config.yaml</code>.</p>
+<p>If everything goes well, you'll see the login screen and can use the <code>user/pass</code> from the <code>config.yaml</code>.</p>
 <h4 id="deploy-a-pod-2">Deploy a pod</h4>
 <p>Let's deploy a pod to our cluster. Double click on pod. Check pod logs.</p>
 <p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="open pod resource" src="deploy-pod.mp4"></video></p>
 <h4 id="multiselect-2">Multiselect</h4>
-<p>Now select a bunch of pods and delete it.</p>
+<p>Now select a bunch of pods and delete them.</p>
 <p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="delete pod resource" src="delete-pods.mp4"></video></p>
 <h4 id="scale-resources-2">Scale Resources</h4>
-<p>Lets scale deployment, any resources which supports scale can be scaled.</p>
+<p>Let's scale a deployment. Any resource that supports scaling can be scaled.</p>
 <p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="scale resources" src="scale.mp4"></video></p>
 <h4 id="cronjob-2">Cronjob</h4>
 <p>You can trigger cronjob.</p>
@@ -714,7 +714,7 @@ $ admin:<span class="token variable">$2y</span><span class="token variable">$05<
 			</p>
 		</footer>
 
-		<!-- This page `/blog/teleskopio-with-kind/` was built on 2026-01-17T13:14:32.285Z -->
+		<!-- This page `/blog/teleskopio-with-kind/` was built on 2026-01-17T13:27:19.889Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>
