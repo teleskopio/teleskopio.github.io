@@ -22,7 +22,7 @@ Run `teleskopio --config=./config.yaml`.
 
 <video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./helm-integration.mp4"></video>
 
-In this video we've run a bunch of `helm install/uninstall` commands in another terminal. In the `teleskopio` web ui we're able to open manifests of `helm` release by double click on the release column.
+In this video, we've run a bunch of `helm install/uninstall` commands in another terminal. In the `teleskopio` web UI, we can open the manifests of a Helm release by double‑clicking the release column.
 
 #### Under the hood
 
