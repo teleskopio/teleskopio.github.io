@@ -1,6 +1,7 @@
 ---
 title: teleskopio helm integration
 date: 2026-01-17
+draft: true
 tags: ["kind", "helm", "howtos"]
 ---
 
