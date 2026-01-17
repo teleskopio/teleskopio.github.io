@@ -1,10 +1,12 @@
 ---
 title: teleskopio with kind
-date: 2025-01-05
+date: 2026-01-05
 tags: ["docker", "kind", "howtos"]
 ---
 
 #### [Run](#run-2)
+
+#### [Setup kind](#setup-kind-2)
 
 #### [Deploy a Pod](#deploy-a-pod-2)
 
@@ -31,6 +33,8 @@ In this example I'm going to use [`kind`](https://kind.sigs.k8s.io/), it's a ver
 
 > kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
 > kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.
+
+#### Setup kind
 
 Let's create a simple cluster.
 
