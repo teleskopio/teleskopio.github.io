@@ -635,7 +635,7 @@ pre[class*="language-diff-"] {
 <h4 id="helm"><a href="#helm-2">Helm</a></h4>
 <h4 id="under-the-hood"><a href="#under-the-hood-2">Under the hood</a></h4>
 <p>Hey! Hope you're doing fine.</p>
-<p>The <code>teleskopio</code> has released a new version with Helm integration.
+<p>The <code>teleskopio</code> has released a new version featuring Helm integration.
 In this article, I'll explain how that feature was developed.</p>
 <p>We'll test it on a kind cluster.
 Let's create a simple cluster. In the previous post, you can find how to set up a cluster with kind.</p>
@@ -644,8 +644,8 @@ Let's create a simple cluster. In the previous post, you can find how to set up 
 <p><video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./helm-integration.mp4"></video></p>
 <p>In this video, we've run a bunch of <code>helm install/uninstall</code> commands in another terminal. In the <code>teleskopio</code> web UI, we can open the manifests of a Helm release by double‑clicking the release column.</p>
 <h4 id="under-the-hood-2">Under the hood</h4>
-<p>From the backend side the realization is pretty simple and build on top of helm golang SDK.
-We have a kubernetes client initialized and with what client we can initialize the helm client.</p>
+<p>From the backend side, the realization is pretty simple and built on top of the Helm Go SDK.
+We have a Kubernetes client initialized, and with that client we can initialize the Helm client.</p>
 <p>Here is an example:</p>
 <pre class="language-go" tabindex="0"><code class="language-go">flags <span class="token operator">:=</span> genericclioptions<span class="token punctuation">.</span><span class="token function">NewConfigFlags</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
 <span class="token comment">// Spoof kube config on the fly</span>
@@ -661,7 +661,7 @@ list<span class="token punctuation">.</span>All <span class="token operator">=</
 
 rels<span class="token punctuation">,</span> err <span class="token operator">:=</span> list<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token comment">// rels is a helm releases slice</span></code></pre>
-<p>After list <code>helm</code> releases we're create an kubernetes shared index informers and watch <code>Secret</code> resources.</p>
+<p>After listing Helm releases, we create a Kubernetes shared index informer and watch <code>Secret</code> resources.</p>
 <blockquote>
 <p>A Kubernetes shared index informer is a mechanism in the client-go library for efficiently watching, listing, and caching Kubernetes resources, with the added ability to create custom indexes for fast data retrieval. It is the foundation for building Kubernetes controllers and operators.</p>
 </blockquote>
@@ -669,8 +669,8 @@ rels<span class="token punctuation">,</span> err <span class="token operator">:=
 <blockquote>
 <p>Helm stores release metadata, including chart data and values, in Kubernetes Secrets by default.</p>
 </blockquote>
-<p>In this <code>teleskopio</code> version the <code>helm</code> backend hardcoded as <code>Secret</code>, maybe we'll add more backends (<code>ConfigMap</code>, <code>sql</code> etc) in the future.</p>
-<p>If you want know more feel free to dig <code>teleskopio</code> source code.</p>
+<p>In this <code>teleskopio</code> version, the Helm backend is hardcoded to use <code>Secret</code>. Maybe we'll add more backends (<code>ConfigMap</code>, <code>sql</code>, etc.) in the future.</p>
+<p>If you want to know more, feel free to dig into the <code>teleskopio</code> source code.</p>
 <p>That's a brief overview of the <code>teleskopio</code> features.</p>
 <p>Happy coding!</p>
 
@@ -690,7 +690,7 @@ rels<span class="token punctuation">,</span> err <span class="token operator">:=
 			</p>
 		</footer>
 
-		<!-- This page `/blog/teleskopio-helm-integration/` was built on 2026-01-17T13:11:26.493Z -->
+		<!-- This page `/blog/teleskopio-helm-integration/` was built on 2026-01-17T13:14:32.285Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>

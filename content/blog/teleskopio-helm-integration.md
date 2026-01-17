@@ -10,7 +10,7 @@ tags: ["kind", "helm", "howtos"]
 
 Hey! Hope you're doing fine.
 
-The `teleskopio` has released a new version with Helm integration.
+The `teleskopio` has released a new version featuring Helm integration.
 In this article, I'll explain how that feature was developed.
 
 We'll test it on a kind cluster.
@@ -26,8 +26,8 @@ In this video, we've run a bunch of `helm install/uninstall` commands in another
 
 #### Under the hood
 
-From the backend side the realization is pretty simple and build on top of helm golang SDK.
-We have a kubernetes client initialized and with what client we can initialize the helm client.
+From the backend side, the realization is pretty simple and built on top of the Helm Go SDK.
+We have a Kubernetes client initialized, and with that client we can initialize the Helm client.
 
 Here is an example:
 
@@ -48,7 +48,7 @@ rels, err := list.Run()
 // rels is a helm releases slice
 ```
 
-After list `helm` releases we're create an kubernetes shared index informers and watch `Secret` resources.
+After listing Helm releases, we create a Kubernetes shared index informer and watch `Secret` resources.
 
 > A Kubernetes shared index informer is a mechanism in the client-go library for efficiently watching, listing, and caching Kubernetes resources, with the added ability to create custom indexes for fast data retrieval. It is the foundation for building Kubernetes controllers and operators.
 
@@ -56,9 +56,9 @@ That's because of `helm` nature.
 
 > Helm stores release metadata, including chart data and values, in Kubernetes Secrets by default.
 
-In this `teleskopio` version the `helm` backend hardcoded as `Secret`, maybe we'll add more backends (`ConfigMap`, `sql` etc) in the future.
+In this `teleskopio` version, the Helm backend is hardcoded to use `Secret`. Maybe we'll add more backends (`ConfigMap`, `sql`, etc.) in the future.
 
-If you want know more feel free to dig `teleskopio` source code.
+If you want to know more, feel free to dig into the `teleskopio` source code.
 
 That's a brief overview of the `teleskopio` features.
 
