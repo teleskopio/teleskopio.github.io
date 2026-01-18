@@ -618,10 +618,10 @@ pre[class*="language-diff-"] {
 							<a href="/"></a>
 						</li>
 						<li class="nav-item">
-							<a href="/configuration/">configuration</a>
+							<a href="/configuration/" aria-current="page">configuration</a>
 						</li>
 						<li class="nav-item">
-							<a href="/install/" aria-current="page">install</a>
+							<a href="/install/">install</a>
 						</li>
 						<li class="nav-item">
 							<a href="/blog/">blog</a>
@@ -643,49 +643,10 @@ pre[class*="language-diff-"] {
 </div>
 
 
-<h3 id="install">Install</h3>
-<h4 id="linux">Linux</h4>
-<p>Download <a href="https://github.com/teleskopio/teleskopio/releases">release</a>.</p>
-<h4 id="macos">MacOS</h4>
-<p>Use brew (ARM and Intel):</p>
-<ol>
-<li><code>brew tap roman-kiselenko/homebrew-teleskopio</code></li>
-<li><code>brew install --cask teleskopio</code></li>
-</ol>
-<h4 id="docker">Docker</h4>
-<ol>
-<li>Pull docker image from <a href="https://github.com/teleskopio/teleskopio/pkgs/container/teleskopio">Packages</a></li>
-</ol>
-<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">docker</span> pull ghcr.io/teleskopio/teleskopio:latest</code></pre>
-<ol start="2">
-<li>Generate config</li>
-</ol>
-<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--rm</span> ghcr.io/teleskopio/teleskopio:latest config <span class="token operator">></span> config.yaml</code></pre>
-<ol start="3">
-<li>Edit config</li>
-</ol>
-<pre class="language-sh" tabindex="0"><code class="language-sh">$ htpasswd <span class="token parameter variable">-nbB</span> admin MySecret123 <span class="token comment"># apache2-utils</span>
-<span class="token operator">></span> admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$U7puDu7wKOMP6i4eI1nO4ux909bH8FuPadEQq2oxx7SRXrBh3xJIG</span>
-<span class="token function">vim</span> config.yaml <span class="token comment"># edit confAig and add admin user</span>
-<span class="token comment"># add kubeconfig content to kube.configs</span>
-<span class="token comment"># check example in config.yaml</span></code></pre>
-<ol start="4">
-<li>Run</li>
-</ol>
-<p>Run with <code>--network=host</code> if you're using kind cluster</p>
-<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--rm</span> <span class="token parameter variable">--network</span><span class="token operator">=</span>host <span class="token parameter variable">-p</span> <span class="token number">3080</span>:3080 <span class="token punctuation">\</span>
-  <span class="token parameter variable">-v</span> <span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/config.yaml:/usr/bin/config.yaml ghcr.io/teleskopio/teleskopio:latest <span class="token punctuation">\</span>
-  <span class="token parameter variable">--config</span><span class="token operator">=</span>/usr/bin/config.yaml</code></pre>
-<p>Or run with docker network</p>
-<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--rm</span> <span class="token parameter variable">-p</span> <span class="token number">3080</span>:3080 <span class="token punctuation">\</span>
-  <span class="token parameter variable">-v</span> <span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/config.yaml:/usr/bin/config.yaml ghcr.io/teleskopio/teleskopio:latest <span class="token punctuation">\</span>
-  <span class="token parameter variable">--config</span><span class="token operator">=</span>/usr/bin/config.yaml
-<span class="token number">5</span>:47AM INF <span class="token builtin class-name">set</span> loglevel <span class="token assign-left variable">level</span><span class="token operator">=</span>DEBUG
-<span class="token number">5</span>:47AM INF version <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token string">""</span>
-<span class="token number">5</span>:47AM INF initialize web server <span class="token assign-left variable">addr</span><span class="token operator">=</span>:3080
-<span class="token punctuation">..</span>.</code></pre>
-<h4 id="config">Config</h4>
-<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token key atrule">log_color</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment"># Color output (only work with text)</span>
+<h3 id="configuration">Configuration</h3>
+<h4 id="config-yaml">config.yaml</h4>
+<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token comment"># Example config.yaml</span>
+<span class="token key atrule">log_color</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment"># Color output (only work with text)</span>
 <span class="token key atrule">log_json</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment"># Output logs as JSON</span>
 <span class="token key atrule">log_level</span><span class="token punctuation">:</span> INFO <span class="token comment"># Log Level</span>
 <span class="token key atrule">server_http</span><span class="token punctuation">:</span> <span class="token string">":3080"</span> <span class="token comment"># HTTP address</span>
@@ -732,7 +693,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>
 
-		<!-- This page `/install/` was built on 2026-01-18T07:02:52.348Z -->
+		<!-- This page `/configuration/` was built on 2026-01-18T07:02:52.348Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>
