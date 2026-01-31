@@ -1,7 +1,6 @@
 ---
 title: teleskopio helm integration
 date: 2026-01-31
-draft: true
 tags: ["kind", "helm", "howtos"]
 ---
 
@@ -11,7 +10,7 @@ tags: ["kind", "helm", "howtos"]
 
 Hey! Hope you're doing fine.
 
-The `teleskopio` has released a new version featuring Helm integration.
+The `teleskopio` has released a new version `v0.1.3` featuring Helm integration.
 In this article, I'll explain how that feature was developed.
 
 We'll test it on a kind cluster.
