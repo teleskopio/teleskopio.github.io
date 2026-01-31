@@ -1,6 +1,6 @@
 ---
 title: teleskopio helm integration
-date: 2026-01-17
+date: 2026-01-31
 draft: true
 tags: ["kind", "helm", "howtos"]
 ---
@@ -15,7 +15,7 @@ The `teleskopio` has released a new version featuring Helm integration.
 In this article, I'll explain how that feature was developed.
 
 We'll test it on a kind cluster.
-Let's create a simple cluster. In the previous post, you can find how to set up a cluster with kind.
+Let's create a simple cluster. In the previous post, you can [find how to set up a cluster with kind](/blog/teleskopio-with-kind/).
 
 #### Helm
 
@@ -27,7 +27,7 @@ In this video, we've run a bunch of `helm install/uninstall` commands in another
 
 #### Under the hood
 
-From the backend side, the realization is pretty simple and built on top of the Helm Go SDK.
+From the backend side, the realization is pretty simple and built on top of the [Helm Go SDK](https://helm.sh/docs/sdk/).
 We have a Kubernetes client initialized, and with that client we can initialize the Helm client.
 
 Here is an example:
