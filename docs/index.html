@@ -644,7 +644,7 @@ pre[class*="language-diff-"] {
 
 
 <div class="media-main">
-	<picture><source type="image/avif" srcset="/44SnPLUyNg-1024.avif 1024w"><source type="image/webp" srcset="/44SnPLUyNg-1024.webp 1024w"><img loading="eager" decoding="async" src="/44SnPLUyNg-1024.png" alt="teleskopio logo" width="1024" height="1024"></picture>
+	<picture><source type="image/avif" srcset="/.11ty/image/?src=content%2Fblog%2Ficon.png&width=1024&format=avif&via=transform 1024w"><source type="image/webp" srcset="/.11ty/image/?src=content%2Fblog%2Ficon.png&width=1024&format=webp&via=transform 1024w"><img loading="eager" decoding="async" src="/.11ty/image/?src=content%2Fblog%2Ficon.png&width=1024&format=png&via=transform" alt="teleskopio logo" width="1024" height="1024"></picture>
 	<div class="text-content">
 		<a class="github-button" href="https://github.com/teleskopio/teleskopio/issues" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Issue teleskopio/teleskopio on GitHub">Issue</a>
 		<a class="github-button" href="https://github.com/teleskopio/teleskopio" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true" aria-label="Star teleskopio/teleskopio on GitHub">Star</a>
@@ -653,31 +653,36 @@ pre[class*="language-diff-"] {
 	</div>
 </div>
 <h3 id="motivation">Motivation</h3>
-<p><a href="https://github.com/kubernetes-retired/dashboard?tab=readme-ov-file#important">Kubernetes dashboard</a> has been retired, long live Kubernetes dashboard!</p>
+<p><a href="https://github.com/kubernetes-retired/dashboard?tab=readme-ov-file#important">Kubernetes dashboard</a> has been retired, long live <code>Kubernetes</code> dashboard!</p>
 <p>I started developing my own dashboard a year ago; <code>teleskopio</code> was born after struggling to manage clusters with the terminal.</p>
 <h3 id="features">Features</h3>
 <ul>
-<li>Multiple config support – switch between clusters effortlessly. Teleskopio reads the <code>$KUBECONFIG</code> variable and checks the <code>config.yaml</code> file.</li>
-<li>Simple JWT token authorization.</li>
+<li><a href="/configuration/#configuration">Multiple config support</a> – switch between clusters effortlessly. Teleskopio reads the <code>$KUBECONFIG</code> variable and checks the <code>config.yaml</code> file.</li>
+<li>Simple <code>JWT</code> token authorization.</li>
 <li>Admin and Viewer role - Full access (admin) or Read Only access (viewer) to cluster.</li>
 <li>Cluster overview - get a high-level view of cluster health and activity.</li>
-<li>Resource editor/creator - integrated <a href="https://microsoft.github.io/monaco-editor/">Monaco Editor</a> with syntax highlighting.</li>
-<li>Live updates - real-time resource changes with Kubernetes watchers.</li>
-<li><code>Pod</code> logs and events - inspect logs and event history directly in the UI.</li>
+<li><a href="/blog/teleskopio-with-kind/#deploy-a-pod-2">Resource editor/creator</a> - integrated <a href="https://microsoft.github.io/monaco-editor/">Monaco Editor</a> with syntax highlighting.</li>
+<li>Live updates - real-time resource changes with <code>Kubernetes</code> watchers.</li>
+<li><code>Pod</code> logs and <code>Event</code>'s - inspect logs and event history directly in the UI.</li>
 <li>Owner links - navigate from a resource to its owner.</li>
 <li><code>CRD</code> - custom resource definition editor.</li>
-<li>Multiple font options - customize the UI appearance.</li>
-<li>Manual <code>CronJob</code> triggering</li>
-<li>Scale resources (<code>Deployments</code>, <code>ReplicaSets</code>)</li>
+<li>Multiple font options - customize the UI appearance, <a href="/blog/teleskopio-with-kind/#theme-and-font-2">Light and dark themes</a>.</li>
+<li>Manual <code>CronJob</code> <a href="/blog/teleskopio-with-kind/#cronjob-2">triggering</a></li>
+<li><a href="/blog/teleskopio-with-kind/#scale-resources-2">Scale resources</a> (<code>Deployments</code>, <code>ReplicaSets</code>)</li>
 <li>Filter <code>CTRL + F</code> any resource.</li>
 <li>Jump to section <code>CTRL + J</code> any menu.</li>
-<li>Objects multi-select operations (delete, drain, cordon, e.t.c.)</li>
+<li><a href="/blog/teleskopio-with-kind/#multiselect-2">Objects multi-select operations</a> (delete, drain, cordon, e.t.c.)</li>
 <li>Kubernetes <a href="https://github.com/yannh/kubernetes-json-schema?tab=readme-ov-file#kubernetes-json-schemas">resource schemas</a> per API version.</li>
-<li>Light and dark themes.</li>
+<li><a href="/blog/teleskopio-helm-integration">Helm integration</a></li>
+<li>Air-gapped environments ready. No external requests.</li>
 </ul>
+<h3 id="install">Install</h3>
+<h4 id="linux"><a href="/install/#linux-2">Linux</a></h4>
+<h4 id="macos"><a href="/install/#macos-2">MacOS</a></h4>
+<h4 id="docker"><a href="/install/#docker-2">Docker</a></h4>
+<h4 id="helm"><a href="/install/#helm-2">Helm</a></h4>
 <h3 id="planned-features">Planned Features</h3>
 <ul>
-<li>Helm integration. <a href="https://github.com/teleskopio/teleskopio/issues/11">issue</a></li>
 <li>MCP server. <a href="https://github.com/teleskopio/teleskopio/issues/15">issue</a></li>
 <li>Resource metrics - CPU, memory, and other usage statistics.</li>
 </ul>
@@ -702,7 +707,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>
 
-		<!-- This page `/` was built on 2026-02-01T10:05:44.863Z -->
+		<!-- This page `/` was built on 2026-02-01T12:48:10.449Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>

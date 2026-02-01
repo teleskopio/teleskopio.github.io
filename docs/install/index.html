@@ -693,6 +693,56 @@ pre[class*="language-diff-"] {
 <p><a href="https://github.com/teleskopio/teleskopio">Clone repository</a>. Run <code>make build-helm-chart</code> (<code>helm</code> binary in <code>PATH</code> is required.)</p>
 <p>Check out <code>helm</code> chart  <a href="https://github.com/teleskopio/teleskopio/blob/master/deploy/teleskopio/values.yaml"><code>values.yaml</code></a>.</p>
 <p>By default <code>RBAC's</code> for <code>teleskopio</code> give access to <strong>all cluster and to any kind of operation</strong>.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token function">git</span> clone git@github.com:teleskopio/teleskopio.git
+$ <span class="token builtin class-name">cd</span> teleskopio
+$ <span class="token function">make</span> build-helm-char
+helm package ./deploy/teleskopio
+Successfully packaged chart and saved it to: /home/dev/teleskopio/teleskopio-0.1.4.tgz
+<span class="token comment"># Add you own config.yaml</span>
+$ <span class="token function">cat</span> config.yaml
+service:
+  type: ClusterIP
+  port: <span class="token number">3090</span>
+
+config:
+  name: config
+  content:
+    log_color: <span class="token boolean">false</span>
+    log_json: <span class="token boolean">true</span>
+    log_level: INFO
+    server_http: <span class="token string">":3090"</span>
+    jwt_key: <span class="token string">"b2436e01424c714e4583f2f2851a0e1304440157"</span> <span class="token comment"># openssl rand -hex 20</span>
+    auth_disabled: <span class="token boolean">false</span>
+    users:
+      - username: admin
+        password: <span class="token string">"<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$PgEhSAwkE0RlbYiJqSxF</span>/e529Xu5HGey.cEY/qqoksLlFckk3kaiW"</span> <span class="token comment"># htpasswd -nbB admin MySecret123</span>
+        role: <span class="token string">"admin"</span>
+      - username: user
+        password: <span class="token string">"<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$PgEhSAwkE0RlbYiJqSxF</span>/e529Xu5HGey.cEY/qqoksLlFckk3kaiW"</span>
+        role: <span class="token string">"viewer"</span>
+    kube:
+      configs:
+<span class="token comment"># Install local helm chart with own values.yaml</span>
+$ helm <span class="token function">install</span> teleskopio ./teleskopio-0.1.4.tgz <span class="token parameter variable">-f</span> values.yaml
+NAME: teleskopio
+LAST DEPLOYED: Sun Feb  <span class="token number">1</span> <span class="token number">15</span>:39:52 <span class="token number">2026</span>
+NAMESPACE: default
+STATUS: deployed
+REVISION: <span class="token number">1</span>
+DESCRIPTION: Install complete
+NOTES:
+<span class="token number">1</span>. Get the application URL by running these commands:
+  <span class="token builtin class-name">export</span> <span class="token assign-left variable">POD_NAME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>kubectl get pods <span class="token parameter variable">--namespace</span> default <span class="token parameter variable">-l</span> <span class="token string">"app.kubernetes.io/name=teleskopio,app.kubernetes.io/instance=teleskopio"</span> <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">"{.items[0].metadata.name}"</span><span class="token variable">)</span></span>
+  <span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_PORT</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>kubectl get pod <span class="token parameter variable">--namespace</span> default $POD_NAME <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">"{.spec.containers[0].ports[0].containerPort}"</span><span class="token variable">)</span></span>
+  <span class="token builtin class-name">echo</span> <span class="token string">"Visit http://127.0.0.1:8080 to use your application"</span>
+  kubectl <span class="token parameter variable">--namespace</span> default port-forward <span class="token variable">$POD_NAME</span> <span class="token number">8080</span>:<span class="token variable">$CONTAINER_PORT</span>
+
+<span class="token comment"># Follow NOTES instruction and use port-forward</span>
+$ kubectl <span class="token parameter variable">--namespace</span> default port-forward <span class="token variable">$POD_NAME</span> <span class="token number">8080</span>:<span class="token variable">$CONTAINER_PORT</span>
+Forwarding from <span class="token number">127.0</span>.0.1:8080 -<span class="token operator">></span> <span class="token number">3090</span>
+Forwarding from <span class="token punctuation">[</span>::1<span class="token punctuation">]</span>:8080 -<span class="token operator">></span> <span class="token number">3090</span></code></pre>
+<p>Open <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>.</p>
+<p>Happy coding!</p>
 
 			</heading-anchors>
 		</main>
@@ -704,7 +754,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>
 
-		<!-- This page `/install/` was built on 2026-02-01T10:05:44.864Z -->
+		<!-- This page `/install/` was built on 2026-02-01T12:48:10.449Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>

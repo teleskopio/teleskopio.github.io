@@ -20,34 +20,44 @@ const numberOfLatestPostsToShow = 5;
 
 ### Motivation
 
-[Kubernetes dashboard](https://github.com/kubernetes-retired/dashboard?tab=readme-ov-file#important) has been retired, long live Kubernetes dashboard!
+[Kubernetes dashboard](https://github.com/kubernetes-retired/dashboard?tab=readme-ov-file#important) has been retired, long live `Kubernetes` dashboard!
 
 I started developing my own dashboard a year ago; `teleskopio` was born after struggling to manage clusters with the terminal.
 
-
 ### Features
 
-- Multiple config support – switch between clusters effortlessly. Teleskopio reads the `$KUBECONFIG` variable and checks the `config.yaml` file.
-- Simple JWT token authorization.
+- [Multiple config support](/configuration/#configuration) – switch between clusters effortlessly. Teleskopio reads the `$KUBECONFIG` variable and checks the `config.yaml` file.
+- Simple `JWT` token authorization.
 - Admin and Viewer role - Full access (admin) or Read Only access (viewer) to cluster.
 - Cluster overview - get a high-level view of cluster health and activity.
-- Resource editor/creator - integrated [Monaco Editor](https://microsoft.github.io/monaco-editor/) with syntax highlighting.
-- Live updates - real-time resource changes with Kubernetes watchers.
-- `Pod` logs and events - inspect logs and event history directly in the UI.
+- [Resource editor/creator](/blog/teleskopio-with-kind/#deploy-a-pod-2) - integrated [Monaco Editor](https://microsoft.github.io/monaco-editor/) with syntax highlighting.
+- Live updates - real-time resource changes with `Kubernetes` watchers.
+- `Pod` logs and `Event`'s - inspect logs and event history directly in the UI.
 - Owner links - navigate from a resource to its owner.
 - `CRD` - custom resource definition editor.
-- Multiple font options - customize the UI appearance.
-- Manual `CronJob` triggering
-- Scale resources (`Deployments`, `ReplicaSets`)
+- Multiple font options - customize the UI appearance, [Light and dark themes](/blog/teleskopio-with-kind/#theme-and-font-2).
+- Manual `CronJob` [triggering](/blog/teleskopio-with-kind/#cronjob-2)
+- [Scale resources](/blog/teleskopio-with-kind/#scale-resources-2) (`Deployments`, `ReplicaSets`)
 - Filter `CTRL + F` any resource.
 - Jump to section `CTRL + J` any menu.
-- Objects multi-select operations (delete, drain, cordon, e.t.c.)
+- [Objects multi-select operations](/blog/teleskopio-with-kind/#multiselect-2) (delete, drain, cordon, e.t.c.)
 - Kubernetes [resource schemas](https://github.com/yannh/kubernetes-json-schema?tab=readme-ov-file#kubernetes-json-schemas) per API version.
-- Light and dark themes.
+- [Helm integration](/blog/teleskopio-helm-integration)
+- Air-gapped environments ready. No external requests.
+
+### Install
+
+#### [Linux](/install/#linux-2)
+
+#### [MacOS](/install/#macos-2)
+
+#### [Docker](/install/#docker-2)
+
+#### [Helm](/install/#helm-2)
+
 
 ### Planned Features
 
-- Helm integration. [issue](https://github.com/teleskopio/teleskopio/issues/11)
 - MCP server. [issue](https://github.com/teleskopio/teleskopio/issues/15)
 - Resource metrics - CPU, memory, and other usage statistics.
 
