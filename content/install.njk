@@ -9,6 +9,14 @@ const eleventyNavigation = {
 
 ### Install
 
+#### [Linux](#linux-2)
+
+#### [MacOS](#macos-2)
+
+#### [Docker](#docker-2)
+
+#### [Helm](#helm-2)
+
 #### Linux
 
 Download [release](https://github.com/teleskopio/teleskopio/releases).
@@ -66,45 +74,14 @@ docker run -it --rm -p 3080:3080 \
 ...
 ```
 
-#### Config
+#### Helm
 
-```yml
-log_color: false # Color output (only work with text)
-log_json: true # Output logs as JSON
-log_level: INFO # Log Level
-server_http: ":3080" # HTTP address
-jwt_key: "super-salt" # salt for JWT token
-auth_disabled: false # set to true to disable auth completly
-users:
-  - username: admin
-    password: "" # htpasswd -nbB admin MySecret123
-    role: "admin"
-  - username: user
-    password: ""
-    role: "viewer"
-kube:
-  configs:
-    # Paste content of ~/.kube/config
-    # or set KUBECONFIG env variable
-    - apiVersion: v1
-      clusters:
-        - cluster:
-            certificate-authority-data: LS0tLS1...
-            server: https://127.0.0.1:57598
-          name: kind-kind
-      contexts:
-        - context:
-            cluster: kind-kind
-            user: kind-kind
-          name: kind-kind
-      current-context: kind-kind
-      kind: Config
-      preferences: {}
-      users:
-        - name: kind-kind
-          user:
-            client-certificate-data: LS0tL...
-            client-key-data: LS0tL...
-```
+Right now only building `helm` package from sources install option available.
+
+[Clone repository](https://github.com/teleskopio/teleskopio). Run `make build-helm-chart` (`helm` binary in `PATH` is required.)
+
+Check out `helm` chart  [`values.yaml`](https://github.com/teleskopio/teleskopio/blob/master/deploy/teleskopio/values.yaml).
+
+By default `RBAC's` for `teleskopio` give access to **all cluster and to any kind of operation**.
 
 {% endrenderTemplate %}

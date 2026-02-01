@@ -644,15 +644,19 @@ pre[class*="language-diff-"] {
 
 
 <h3 id="install">Install</h3>
-<h4 id="linux">Linux</h4>
+<h4 id="linux"><a href="#linux-2">Linux</a></h4>
+<h4 id="macos"><a href="#macos-2">MacOS</a></h4>
+<h4 id="docker"><a href="#docker-2">Docker</a></h4>
+<h4 id="helm"><a href="#helm-2">Helm</a></h4>
+<h4 id="linux-2">Linux</h4>
 <p>Download <a href="https://github.com/teleskopio/teleskopio/releases">release</a>.</p>
-<h4 id="macos">MacOS</h4>
+<h4 id="macos-2">MacOS</h4>
 <p>Use brew (ARM and Intel):</p>
 <ol>
 <li><code>brew tap teleskopio/homebrew-teleskopio</code></li>
 <li><code>brew install --cask teleskopio</code></li>
 </ol>
-<h4 id="docker">Docker</h4>
+<h4 id="docker-2">Docker</h4>
 <ol>
 <li>Pull docker image from <a href="https://github.com/teleskopio/teleskopio/pkgs/container/teleskopio">Packages</a></li>
 </ol>
@@ -684,43 +688,11 @@ pre[class*="language-diff-"] {
 <span class="token number">5</span>:47AM INF version <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token string">""</span>
 <span class="token number">5</span>:47AM INF initialize web server <span class="token assign-left variable">addr</span><span class="token operator">=</span>:3080
 <span class="token punctuation">..</span>.</code></pre>
-<h4 id="config">Config</h4>
-<pre class="language-yml" tabindex="0"><code class="language-yml"><span class="token key atrule">log_color</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment"># Color output (only work with text)</span>
-<span class="token key atrule">log_json</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment"># Output logs as JSON</span>
-<span class="token key atrule">log_level</span><span class="token punctuation">:</span> INFO <span class="token comment"># Log Level</span>
-<span class="token key atrule">server_http</span><span class="token punctuation">:</span> <span class="token string">":3080"</span> <span class="token comment"># HTTP address</span>
-<span class="token key atrule">jwt_key</span><span class="token punctuation">:</span> <span class="token string">"super-salt"</span> <span class="token comment"># salt for JWT token</span>
-<span class="token key atrule">auth_disabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment"># set to true to disable auth completly</span>
-<span class="token key atrule">users</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">username</span><span class="token punctuation">:</span> admin
-    <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">""</span> <span class="token comment"># htpasswd -nbB admin MySecret123</span>
-    <span class="token key atrule">role</span><span class="token punctuation">:</span> <span class="token string">"admin"</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">username</span><span class="token punctuation">:</span> user
-    <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">""</span>
-    <span class="token key atrule">role</span><span class="token punctuation">:</span> <span class="token string">"viewer"</span>
-<span class="token key atrule">kube</span><span class="token punctuation">:</span>
-  <span class="token key atrule">configs</span><span class="token punctuation">:</span>
-    <span class="token comment"># Paste content of ~/.kube/config</span>
-    <span class="token comment"># or set KUBECONFIG env variable</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-      <span class="token key atrule">clusters</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">cluster</span><span class="token punctuation">:</span>
-            <span class="token key atrule">certificate-authority-data</span><span class="token punctuation">:</span> LS0tLS1<span class="token punctuation">...</span>
-            <span class="token key atrule">server</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">57598</span>
-          <span class="token key atrule">name</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-      <span class="token key atrule">contexts</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span>
-            <span class="token key atrule">cluster</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-            <span class="token key atrule">user</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-          <span class="token key atrule">name</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-      <span class="token key atrule">current-context</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Config
-      <span class="token key atrule">preferences</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-      <span class="token key atrule">users</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-          <span class="token key atrule">user</span><span class="token punctuation">:</span>
-            <span class="token key atrule">client-certificate-data</span><span class="token punctuation">:</span> LS0tL<span class="token punctuation">...</span>
-            <span class="token key atrule">client-key-data</span><span class="token punctuation">:</span> LS0tL<span class="token punctuation">...</span></code></pre>
+<h4 id="helm-2">Helm</h4>
+<p>Right now only building <code>helm</code> package from sources install option available.</p>
+<p><a href="https://github.com/teleskopio/teleskopio">Clone repository</a>. Run <code>make build-helm-chart</code> (<code>helm</code> binary in <code>PATH</code> is required.)</p>
+<p>Check out <code>helm</code> chart  <a href="https://github.com/teleskopio/teleskopio/blob/master/deploy/teleskopio/values.yaml"><code>values.yaml</code></a>.</p>
+<p>By default <code>RBAC's</code> for <code>teleskopio</code> give access to <strong>all cluster and to any kind of operation</strong>.</p>
 
 			</heading-anchors>
 		</main>
@@ -732,7 +704,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>
 
-		<!-- This page `/install/` was built on 2026-01-31T09:34:08.426Z -->
+		<!-- This page `/install/` was built on 2026-02-01T10:05:44.864Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>
