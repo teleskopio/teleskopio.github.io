@@ -1,7 +1,7 @@
 /* Defaults */
 
 :root {
-	--font-family: "Roboto", sans-serif;
+	--font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 	--font-family-monospace: "Iosevka Web", monospace;
 }
 
@@ -11,9 +11,9 @@
 	--color-gray-50: #C0C0C0;
 	--color-gray-90: #333;
 
-	--background-color: #ffffff;
+	--background-color: #f6f6f6;
 
-	--card-background-color: #ffffff;
+	--card-background-color: #fff;
 
 	--color-code-gray-90: #494949;
 	--color-code-gray-30: #dcdcdc;
