@@ -1,0 +1,146 @@
+---
+title: teleskopio MCP server
+date: 2026-05-31
+tags: ["mcp", "llm", "kubernetes", "kind", "howtos"]
+---
+
+This guide is based on my article [The teleskopio MCP Server and llama.cpp](https://rkiselenko.dev/blog/teleskopio-mcp/).
+
+The teleskopio build around Kubernetes watchers and Dynamic resources, hence there is no hardcoded schema and required kubernetes version to work with, all resources loaded at runtime and updated by events subscriptions. The same api are under the hood of MCP integration.
+
+First MVP integration is 3 tools, 1 prompt and completion accourding to the [modelcontextprotocol](https://modelcontextprotocol.io/docs/getting-started/intro).
+As an MCP client I'm going to use [llama.cpp](https://github.com/ggml-org/llama.cpp) because it has a very robust MCP and tools integration.
+
+Lets start (my host is MacOS):
+
+Use [colima](https://github.com/abiosoft/colima) as docker engine.
+
+```sh
+colima status
+INFO[0000] colima is running using macOS Virtualization.Framework
+INFO[0000] arch: aarch64
+INFO[0000] runtime: docker
+INFO[0000] mountType: virtiofs
+INFO[0000] docker socket: unix:///Users/roman/.colima/default/docker.sock
+INFO[0000] containerd socket: unix:///Users/roman/.colima/default/containerd.sock
+```
+
+Spin up a [kind](https://kind.sigs.k8s.io) cluster.
+
+```sh
+docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED      STATUS       PORTS                       NAMES
+74a462cbf7de   kindest/node:v1.35.0   "/usr/local/bin/entr…"   4 days ago   Up 2 hours   127.0.0.1:50025->6443/tcp   kind-control-plane
+```
+
+Run teleskopio with `mcp.enabled = true`, (the way teleskopio [is deployed doesnt matter](https://teleskopio.github.io/install/#install), it can be in the docker, on the host, by helm).
+
+```sh
+cat config.yaml | yq .mcp
+enabled: true
+```
+
+3. Spin up llama.cpp server with `Qwen3.6-27B-GGUF-8bit` model and add teleskopio mcp server (use llama-mcp-proxy enabled).
+
+```sh
+llama-server --port 8083 \
+  --webui-mcp-proxy \
+  -hf unsloth/Qwen3.6-27B-GGUF-8bit:UD-Q8_K_XL \
+  -c 640000 \
+  -ctk q4_0 \
+  -ctv q4_0 \
+  --alias Qwen3.6-27B-GGUF-8bit \
+  --cache-reuse 32 \
+  -ngl 35 \
+  --reasoning on
+```
+
+<a href="add-mcp-llama.png" title="add mcp llama" target="_blank" rel="noopener">
+<image src="add-mcp-llama.png"></a>
+
+As an example of LLM usage I'm going to deploy 5 pods in the different namespaces. 1 pending with wrong image name (busyboxx), 2 failed (exit 1), 2 nginx containers without any problem.
+
+<a href="deploy-workloads.png" title="deploy workloads" target="_blank" rel="noopener">
+<image src="deploy-workloads.png"></a>
+
+The teleskopio MCP contains a bunch of tools to fetch resources from cluster and one prompt to diagnose pods problems.
+
+```md
+You're an SRE engineer. Follow these steps to investigate pods issues and generate report for the user:
+
+1. Fetch pods resource from the [THE SERVER ENDPOINT] server by using api_resources tool with kind Pod
+2. Use list_resources tool to fetch Pod resources, use empty namespace argument to fetch pods across all namespaces, use field_selector status.phase!=Running to list pods in not Running state, request short resources overview.
+3. If any pods returned look for CrashLoopBackOff, ImagePullBackOff, OOMKilled, FailedScheduling, Unhealthy, BackOff pod phase by requesting those full resources to analize.
+
+CrashLoopBackOff: Looking logs for application errors
+ImagePullBackOff: Wrong image name/tag or pull secrets
+Pending: Insufficient resources, node selector mismatch, PVC not bound
+OOMKilled: Container memory limit too low for workload or workload has resource leaking.
+FailedMount: Missing ConfigMap, Secret, or PV
+
+Return short report for the user.
+```
+
+By typing `/po...` the MCP prompt appears and arguments autocompletion fired (our servers from teleskopio).
+
+<a href="pods-diagnose-prompt.png" title="deploy workloads" target="_blank" rel="noopener">
+<image src="pods-diagnose-prompt.png"></a>
+
+After submitting and waiting a for a while (5 mins) our LLM perform 4 turns and 3 tool calls and spend 10% of the context (64000)
+
+<a href="llm-stats.png" title="deploy workloads" target="_blank" rel="noopener">
+<image src="llm-stats.png"></a>
+
+Here is the report:
+
+```md
+# 🛠️ Pod Diagnosis Report
+
+**Cluster:** `https://127.0.0.1:50025`
+**Scan Scope:** All namespaces, non-Running pods
+**Findings:** 3 problematic pods detected
+
+---
+
+### 🔴 1. `bad-image-pod-example`
+- **Namespace:** `default`
+- **Phase:** `Pending`
+- **Issue:** `ImagePullBackOff`
+- **Details:** Kubelet failed to pull image `busyboxx:latest`. Error: `pull access denied, repository does not exist or may require authorization`.
+- **Root Cause:** Typo in image name (`busyboxx` instead of `busybox`) or missing/incorrect `imagePullSecrets`.
+- **Recommendation:** Correct the image name/tag in the pod/deployment spec. If using a private registry, verify attached pull secrets.
+
+### 🟠 2. `failed-command-example`
+- **Namespace:** `default`
+- **Phase:** `Failed`
+- **Issue:** Container terminated with `Exit Code 1` (`Error`)
+- **Details:** Pod command is explicitly set to `/bin/sh -c exit 1`, causing immediate failure. `restartPolicy: Never` prevents retries.
+- **Recommendation:** This is an application/command configuration error, not a cluster issue. Review and correct the container's `command` or `args`.
+
+### 🟠 3. `another-example`
+- **Namespace:** `kube-system`
+- **Phase:** `Failed`
+- **Issue:** Container terminated with `Exit Code 1` (`Error`)
+- **Details:** Identical to above; runs `/bin/sh -c exit 1` and fails immediately.
+- **Recommendation:** Verify the container entrypoint/command. Ensure the workload doesn't exit prematurely on startup.
+
+---
+
+### 📊 Summary
+- **ImagePullBackOff:** 1 pod (invalid image name)
+- **Failed/Exit Error:** 2 pods (explicit `exit 1` command)
+- **No detections for:** `CrashLoopBackOff`, `OOMKilled`, `FailedScheduling`, `Unhealthy`, or `BackOff` in this scan.
+- **Action Required:** Fix image name for `bad-image-pod-example` and review container commands for the two `Failed` pods.
+
+```
+
+### Conclusion
+
+TBH I'm impressed, right now the MCP protocol (<small>[it's still doubthfull does we need this protocol?](https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/)</small>) is pretty robust to build wonderfull things. The teleskopio MCP server are harmless and able to perform only simple tasks, but it's strong enough to use it in everyday job. :thinking:
+The MCP server is not merged yet and need a bunch of improvments but I think I'll release it soon.
+
+### Credits
+
+- <small>[llama.cpp MCP support](https://github.com/ggml-org/llama.cpp/pull/18655)</small>
+- <small>[mcp-go](https://github.com/mark3labs/mcp-go)</small>
+- <small>[teleskopio](https://teleskopio.github.io)</small>

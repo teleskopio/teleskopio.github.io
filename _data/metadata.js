@@ -2,8 +2,7 @@ export default {
 	title: "teleskopio.github.io",
 	url: "https://teleskopio.github.io/",
 	language: "en",
-	description:
-		"teleskopio is an open-source small and beautiful Web Kubernetes client.",
+	description: "teleskopio a lightweight kubernetes web client",
 	author: {
 		name: "Roman Kiselenko",
 		email: "roman.kiselenko.dev@gmail.com",

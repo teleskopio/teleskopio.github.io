@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>teleskopio.github.io</title>
-		<meta name="description" content="teleskopio is an open-source small and beautiful Web Kubernetes client.">
+		<title>teleskopio helm integration</title>
+		<meta name="description" content="teleskopio a lightweight kubernetes web client">
 
 		<link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -581,24 +581,6 @@ pre[class*="language-diff-"] {
 	text-decoration: none; /* override del, ins, mark defaults */
 	color: inherit; /* override del, ins, mark defaults */
 }
-/* Message Box */
-.message-box {
-	--color-message-box: #ffc;
-
-	display: block;
-	background-color: var(--color-message-box);
-	color: var(--color-gray-90);
-	padding: 0.5em 0.625em; /* 16px 10px /16 */
-}
-.message-box ol {
-	margin-top: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-	.message-box {
-		--color-message-box: #082840;
-	}
-}
 		</style>
 
 		
@@ -618,13 +600,7 @@ pre[class*="language-diff-"] {
 							<a href="/"></a>
 						</li>
 						<li class="nav-item">
-							<a href="/configuration/" aria-current="page">configuration</a>
-						</li>
-						<li class="nav-item">
-							<a href="/install/">install</a>
-						</li>
-						<li class="nav-item">
-							<a href="/blog/">blog</a>
+							<a href="/howtos/">howtos</a>
 						</li>
 					<li class="nav-item">
 						<!-- Place this tag where you want the button to render. -->
@@ -636,53 +612,75 @@ pre[class*="language-diff-"] {
 		<main id="main">
 			<heading-anchors>
 				
-<div class="message-box">
-	<p>
-		<em class="small">This is a <b>beta</b> version. Information may be inaccurate or incomplete, and the software is provided "as is."</em>
-	</p>
-</div>
+<h1 id="teleskopio-helm-integration">teleskopio helm integration</h1>
 
+<ul class="post-metadata">
+	<li>
+		<time datetime="2026-01-31">31 January 2026</time>
+	</li>
+		<li>
+			<a href="/tags/kind/" class="post-tag">kind</a>, 
+		</li>
+		<li>
+			<a href="/tags/helm/" class="post-tag">helm</a>, 
+		</li>
+		<li>
+			<a href="/tags/howtos/" class="post-tag">howtos</a>
+		</li>
+</ul>
 
-<h3 id="configuration">Configuration</h3>
-<h4 id="config-yaml">config.yaml</h4>
-<pre class="language-yaml" tabindex="0"><code class="language-yaml"><span class="token comment"># Example config.yaml</span>
-<span class="token key atrule">log_color</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment"># Color output (only work with text)</span>
-<span class="token key atrule">log_json</span><span class="token punctuation">:</span> <span class="token boolean important">true</span> <span class="token comment"># Output logs as JSON</span>
-<span class="token key atrule">log_level</span><span class="token punctuation">:</span> INFO <span class="token comment"># Log Level</span>
-<span class="token key atrule">server_http</span><span class="token punctuation">:</span> <span class="token string">":3080"</span> <span class="token comment"># HTTP address</span>
-<span class="token key atrule">jwt_key</span><span class="token punctuation">:</span> <span class="token string">"super-salt"</span> <span class="token comment"># salt for JWT token</span>
-<span class="token key atrule">auth_disabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span> <span class="token comment"># set to true to disable auth completly</span>
-<span class="token key atrule">users</span><span class="token punctuation">:</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">username</span><span class="token punctuation">:</span> admin
-    <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">""</span> <span class="token comment"># htpasswd -nbB admin MySecret123</span>
-    <span class="token key atrule">role</span><span class="token punctuation">:</span> <span class="token string">"admin"</span>
-  <span class="token punctuation">-</span> <span class="token key atrule">username</span><span class="token punctuation">:</span> user
-    <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token string">""</span>
-    <span class="token key atrule">role</span><span class="token punctuation">:</span> <span class="token string">"viewer"</span>
-<span class="token key atrule">kube</span><span class="token punctuation">:</span>
-  <span class="token key atrule">configs</span><span class="token punctuation">:</span>
-    <span class="token comment"># Paste content of ~/.kube/config</span>
-    <span class="token comment"># or set KUBECONFIG env variable</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
-      <span class="token key atrule">clusters</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">cluster</span><span class="token punctuation">:</span>
-            <span class="token key atrule">certificate-authority-data</span><span class="token punctuation">:</span> LS0tLS1<span class="token punctuation">...</span>
-            <span class="token key atrule">server</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">57598</span>
-          <span class="token key atrule">name</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-      <span class="token key atrule">contexts</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span>
-            <span class="token key atrule">cluster</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-            <span class="token key atrule">user</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-          <span class="token key atrule">name</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-      <span class="token key atrule">current-context</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Config
-      <span class="token key atrule">preferences</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-      <span class="token key atrule">users</span><span class="token punctuation">:</span>
-        <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> kind<span class="token punctuation">-</span>kind
-          <span class="token key atrule">user</span><span class="token punctuation">:</span>
-            <span class="token key atrule">client-certificate-data</span><span class="token punctuation">:</span> LS0tL<span class="token punctuation">...</span>
-            <span class="token key atrule">client-key-data</span><span class="token punctuation">:</span> LS0tL<span class="token punctuation">...</span></code></pre>
+<h4 id="helm"><a href="#helm-2">Helm</a></h4>
+<h4 id="under-the-hood"><a href="#under-the-hood-2">Under the hood</a></h4>
+<p>Hey! Hope you're doing fine.</p>
+<p>The <code>teleskopio</code> has released a new version <code>v0.1.3</code> featuring Helm integration.
+In this article, I'll explain how that feature was developed.</p>
+<p>We'll test it on a kind cluster.
+Let's create a simple cluster. In the previous post, you can <a href="/blog/teleskopio-with-kind/">find how to set up a cluster with kind</a>.</p>
+<h4 id="helm-2">Helm</h4>
+<p>Run <code>teleskopio --config=./config.yaml</code>.</p>
+<p><video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./helm-integration.mp4"></video></p>
+<p>In this video, we've run a bunch of <code>helm install/uninstall</code> commands in another terminal. In the <code>teleskopio</code> web UI, we can open the manifests of a Helm release by double‑clicking the release column.</p>
+<h4 id="under-the-hood-2">Under the hood</h4>
+<p>From the backend side, the realization is pretty simple and built on top of the <a href="https://helm.sh/docs/sdk/">Helm Go SDK</a>.
+We have a Kubernetes client initialized, and with that client we can initialize the Helm client.</p>
+<p>Here is an example:</p>
+<pre class="language-go" tabindex="0"><code class="language-go">flags <span class="token operator">:=</span> genericclioptions<span class="token punctuation">.</span><span class="token function">NewConfigFlags</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+<span class="token comment">// Spoof kube config on the fly</span>
+flags<span class="token punctuation">.</span>WrapConfigFn <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token boolean">_</span> <span class="token operator">*</span>rest<span class="token punctuation">.</span>Config<span class="token punctuation">)</span> <span class="token operator">*</span>rest<span class="token punctuation">.</span>Config <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> r<span class="token punctuation">.</span><span class="token function">GetCluster</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>Server<span class="token punctuation">)</span><span class="token punctuation">.</span>RestConfig
+<span class="token punctuation">}</span>
+actionConfig <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>Configuration<span class="token punctuation">)</span>
+err <span class="token operator">:=</span> actionConfig<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> ns<span class="token punctuation">,</span> <span class="token string">"secret"</span><span class="token punctuation">,</span> slog<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Info<span class="token punctuation">)</span>
+<span class="token comment">// Handle error</span>
 
+list <span class="token operator">:=</span> action<span class="token punctuation">.</span><span class="token function">NewList</span><span class="token punctuation">(</span>actionConfig<span class="token punctuation">)</span>
+list<span class="token punctuation">.</span>All <span class="token operator">=</span> <span class="token boolean">true</span>
+
+rels<span class="token punctuation">,</span> err <span class="token operator">:=</span> list<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// rels is a helm releases slice</span></code></pre>
+<p>After listing Helm releases, we create a Kubernetes shared index informer and watch <code>Secret</code> resources.</p>
+<blockquote>
+<p>A Kubernetes shared index informer is a mechanism in the client-go library for efficiently watching, listing, and caching Kubernetes resources, with the added ability to create custom indexes for fast data retrieval. It is the foundation for building Kubernetes controllers and operators.</p>
+</blockquote>
+<p>That's because of <code>helm</code> nature.</p>
+<blockquote>
+<p>Helm stores release metadata, including chart data and values, in Kubernetes Secrets by default.</p>
+</blockquote>
+<p>In this <code>teleskopio</code> version, the Helm backend is hardcoded to use <code>Secret</code>. Maybe we'll add more backends (<code>ConfigMap</code>, <code>sql</code>, etc.) in the future.</p>
+<p>If you want to know more, feel free to dig into the <code>teleskopio</code> source code.</p>
+<p>That's a brief overview of the <code>teleskopio</code> features.</p>
+<p>Happy coding!</p>
+
+		<ul class="links-nextprev">
+				<li class="links-nextprev-prev">← Previous<br>
+					<a href="/howtos/teleskopio-with-kind/">teleskopio with kind</a>
+				</li>
+			
+				<li class="links-nextprev-next">Next →<br>
+					<a href="/howtos/mcp-server/">teleskopio MCP server</a>
+				</li>
+			
+		</ul>
 			</heading-anchors>
 		</main>
 
@@ -693,7 +691,7 @@ pre[class*="language-diff-"] {
 			</p>
 		</footer>
 
-		<!-- This page `/configuration/` was built on 2026-02-08T07:20:50.512Z -->
+		<!-- This page `/howtos/teleskopio-helm-integration/` was built on 2026-05-31T12:30:53.136Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>

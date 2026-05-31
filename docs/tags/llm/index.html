@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>teleskopio with kind</title>
-		<meta name="description" content="teleskopio is an open-source small and beautiful Web Kubernetes client.">
+		<title>Tagged &#39;llm&#39;</title>
+		<meta name="description" content="teleskopio a lightweight kubernetes web client">
 
 		<link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -600,13 +600,7 @@ pre[class*="language-diff-"] {
 							<a href="/"></a>
 						</li>
 						<li class="nav-item">
-							<a href="/configuration/">configuration</a>
-						</li>
-						<li class="nav-item">
-							<a href="/install/">install</a>
-						</li>
-						<li class="nav-item">
-							<a href="/blog/">blog</a>
+							<a href="/howtos/">howtos</a>
 						</li>
 					<li class="nav-item">
 						<!-- Place this tag where you want the button to render. -->
@@ -617,96 +611,21 @@ pre[class*="language-diff-"] {
 
 		<main id="main">
 			<heading-anchors>
+				<h1 id="tagged-llm">Tagged “llm”</h1>
+
+
+<ol reversed="" class="postlist" style="--postlist-index: 2">
+		<li class="postlist-item">
+			<a href="/howtos/mcp-server/" class="postlist-link">
+				teleskopio MCP server
 				
-<h1 id="teleskopio-with-kind">teleskopio with kind</h1>
-
-<ul class="post-metadata">
-	<li>
-		<time datetime="2026-01-05">05 January 2026</time>
-	</li>
-		<li>
-			<a href="/tags/docker/" class="post-tag">docker</a>, 
+			</a>
+			<time class="postlist-date" datetime="2026-05-31">May 2026</time>
 		</li>
-		<li>
-			<a href="/tags/kind/" class="post-tag">kind</a>, 
-		</li>
-		<li>
-			<a href="/tags/howtos/" class="post-tag">howtos</a>
-		</li>
-</ul>
+</ol>
 
-<h4 id="run"><a href="#run-2">Run</a></h4>
-<h4 id="setup-kind"><a href="#setup-kind-2">Setup kind</a></h4>
-<h4 id="deploy-a-pod"><a href="#deploy-a-pod-2">Deploy a Pod</a></h4>
-<h4 id="multiselect"><a href="#multiselect-2">Multiselect</a></h4>
-<h4 id="scale-resources"><a href="#scale-resources-2">Scale Resources</a></h4>
-<h4 id="cronjob"><a href="#cronjob-2">Cronjob</a></h4>
-<h4 id="cordon-and-drain"><a href="#cordon-and-drain-2">Cordon and Drain</a></h4>
-<h4 id="theme-and-font"><a href="#theme-and-font-2">Theme and Font</a></h4>
-<p>Let's explore the features of <code>teleskopio</code>.</p>
-<p>Requirements:</p>
-<ul>
-<li>Kubernetes clusters of any version.</li>
-<li><code>kubeconfig</code> of the cluster.</li>
-</ul>
-<p>That's it-we only need access to the cluster to run <code>teleskopio</code>.</p>
-<p>In this example I'm going to use <a href="https://kind.sigs.k8s.io/"><code>kind</code></a>, it's a very popular tool in the Kubernetes world (by the way <code>kind</code> is used in the Kubernetes e2e pipelines).</p>
-<blockquote>
-<p>kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
-kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.</p>
-</blockquote>
-<h4 id="setup-kind-2">Setup kind</h4>
-<p>Let's create a simple cluster.</p>
-<pre class="language-shell" tabindex="0"><code class="language-shell"><span class="token operator">></span> kind create cluster
-Creating cluster <span class="token string">"kind"</span> <span class="token punctuation">..</span>.
- ✓ Ensuring <span class="token function">node</span> image <span class="token punctuation">(</span>kindest/node:v1.35.0<span class="token punctuation">)</span> 🖼
- ✓ Preparing nodes 📦
- ✓ Writing configuration 📜
- ✓ Starting control-plane 🕹️
- ✓ Installing CNI 🔌
- ✓ Installing StorageClass 💾
-Set kubectl context to <span class="token string">"kind-kind"</span>
-You can now use your cluster with:
+<p>See <a href="/tags/">all tags</a>.</p>
 
-kubectl cluster-info <span class="token parameter variable">--context</span> kind-kind
-
-Have a <span class="token function">nice</span> day<span class="token operator">!</span> 👋</code></pre>
-<p>Now copy the contents of the <code>~/.kube/config</code> file or ensure the <code>KUBECONFIG</code> environment variable points to the correct location.</p>
-<p>Run <code>teleskopio config</code>, which prints a sample config to stdout.</p>
-<p>Generate a user with hashed password and add it to the <code>config.yaml</code>.</p>
-<pre class="language-shell" tabindex="0"><code class="language-shell"><span class="token operator">></span> htpasswd <span class="token parameter variable">-nbB</span> admin MySecret12345
-$ admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$GUduJJ9FF</span>.WA8J4zl4vJ4OfKuoszAPJ2iqMt6BcPoQ8kZ3wGy<span class="token punctuation">..</span>n.</code></pre>
-<h4 id="run-2">Run</h4>
-<p>Run <code>teleskopio --config=./config.yaml</code>.</p>
-<p><video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./login.mp4"></video></p>
-<p>If everything goes well, you'll see the login screen and can use the <code>user/pass</code> from the <code>config.yaml</code>.</p>
-<h4 id="deploy-a-pod-2">Deploy a pod</h4>
-<p>Let's deploy a pod to our cluster. Double click on pod. Check pod logs.</p>
-<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="open pod resource" src="deploy-pod.mp4"></video></p>
-<h4 id="multiselect-2">Multiselect</h4>
-<p>Now select a bunch of pods and delete them.</p>
-<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="delete pod resource" src="delete-pods.mp4"></video></p>
-<h4 id="scale-resources-2">Scale Resources</h4>
-<p>Let's scale a deployment. Any resource that supports scaling can be scaled.</p>
-<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="scale resources" src="scale.mp4"></video></p>
-<h4 id="cronjob-2">Cronjob</h4>
-<p>You can trigger cronjob.</p>
-<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="cronjobs" src="cronjobs.mp4"></video></p>
-<h4 id="cordon-and-drain-2">Cordon and Drain</h4>
-<p>You can cordon or drain node(s).</p>
-<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="cordon and drain" src="cordon.mp4"></video></p>
-<h4 id="theme-and-font-2">Theme and Font</h4>
-<p>Another cool feature is font and theme.</p>
-<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="theme and font" src="change-theme-font.mp4"></video></p>
-<p>That's a brief overview of the <code>teleskopio</code> features.</p>
-<p>Feel free to try it!</p>
-
-		<ul class="links-nextprev">
-				<li class="links-nextprev-next">Next →<br>
-					<a href="/blog/teleskopio-helm-integration/">teleskopio helm integration</a>
-				</li>
-			
-		</ul>
 			</heading-anchors>
 		</main>
 
@@ -717,7 +636,7 @@ $ admin:<span class="token variable">$2y</span><span class="token variable">$05<
 			</p>
 		</footer>
 
-		<!-- This page `/blog/teleskopio-with-kind/` was built on 2026-02-08T07:20:50.513Z -->
+		<!-- This page `/tags/llm/` was built on 2026-05-31T12:30:53.168Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>

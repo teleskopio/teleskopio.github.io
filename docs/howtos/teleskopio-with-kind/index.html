@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>teleskopio helm integration</title>
-		<meta name="description" content="teleskopio is an open-source small and beautiful Web Kubernetes client.">
+		<title>teleskopio with kind</title>
+		<meta name="description" content="teleskopio a lightweight kubernetes web client">
 
 		<link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -600,13 +600,7 @@ pre[class*="language-diff-"] {
 							<a href="/"></a>
 						</li>
 						<li class="nav-item">
-							<a href="/configuration/">configuration</a>
-						</li>
-						<li class="nav-item">
-							<a href="/install/">install</a>
-						</li>
-						<li class="nav-item">
-							<a href="/blog/">blog</a>
+							<a href="/howtos/">howtos</a>
 						</li>
 					<li class="nav-item">
 						<!-- Place this tag where you want the button to render. -->
@@ -618,68 +612,92 @@ pre[class*="language-diff-"] {
 		<main id="main">
 			<heading-anchors>
 				
-<h1 id="teleskopio-helm-integration">teleskopio helm integration</h1>
+<h1 id="teleskopio-with-kind">teleskopio with kind</h1>
 
 <ul class="post-metadata">
 	<li>
-		<time datetime="2026-01-31">31 January 2026</time>
+		<time datetime="2026-01-05">05 January 2026</time>
 	</li>
 		<li>
-			<a href="/tags/kind/" class="post-tag">kind</a>, 
+			<a href="/tags/docker/" class="post-tag">docker</a>, 
 		</li>
 		<li>
-			<a href="/tags/helm/" class="post-tag">helm</a>, 
+			<a href="/tags/kind/" class="post-tag">kind</a>, 
 		</li>
 		<li>
 			<a href="/tags/howtos/" class="post-tag">howtos</a>
 		</li>
 </ul>
 
-<h4 id="helm"><a href="#helm-2">Helm</a></h4>
-<h4 id="under-the-hood"><a href="#under-the-hood-2">Under the hood</a></h4>
-<p>Hey! Hope you're doing fine.</p>
-<p>The <code>teleskopio</code> has released a new version <code>v0.1.3</code> featuring Helm integration.
-In this article, I'll explain how that feature was developed.</p>
-<p>We'll test it on a kind cluster.
-Let's create a simple cluster. In the previous post, you can <a href="/blog/teleskopio-with-kind/">find how to set up a cluster with kind</a>.</p>
-<h4 id="helm-2">Helm</h4>
+<h4 id="run"><a href="#run-2">Run</a></h4>
+<h4 id="setup-kind"><a href="#setup-kind-2">Setup kind</a></h4>
+<h4 id="deploy-a-pod"><a href="#deploy-a-pod-2">Deploy a Pod</a></h4>
+<h4 id="multiselect"><a href="#multiselect-2">Multiselect</a></h4>
+<h4 id="scale-resources"><a href="#scale-resources-2">Scale Resources</a></h4>
+<h4 id="cronjob"><a href="#cronjob-2">Cronjob</a></h4>
+<h4 id="cordon-and-drain"><a href="#cordon-and-drain-2">Cordon and Drain</a></h4>
+<h4 id="theme-and-font"><a href="#theme-and-font-2">Theme and Font</a></h4>
+<p>Let's explore the features of <code>teleskopio</code>.</p>
+<p>Requirements:</p>
+<ul>
+<li>Kubernetes clusters of any version.</li>
+<li><code>kubeconfig</code> of the cluster.</li>
+</ul>
+<p>That's it-we only need access to the cluster to run <code>teleskopio</code>.</p>
+<p>In this example I'm going to use <a href="https://kind.sigs.k8s.io/"><code>kind</code></a>, it's a very popular tool in the Kubernetes world (by the way <code>kind</code> is used in the Kubernetes e2e pipelines).</p>
+<blockquote>
+<p>kind is a tool for running local Kubernetes clusters using Docker container “nodes”.
+kind was primarily designed for testing Kubernetes itself, but may be used for local development or CI.</p>
+</blockquote>
+<h4 id="setup-kind-2">Setup kind</h4>
+<p>Let's create a simple cluster.</p>
+<pre class="language-shell" tabindex="0"><code class="language-shell"><span class="token operator">></span> kind create cluster
+Creating cluster <span class="token string">"kind"</span> <span class="token punctuation">..</span>.
+ ✓ Ensuring <span class="token function">node</span> image <span class="token punctuation">(</span>kindest/node:v1.35.0<span class="token punctuation">)</span> 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+Set kubectl context to <span class="token string">"kind-kind"</span>
+You can now use your cluster with:
+
+kubectl cluster-info <span class="token parameter variable">--context</span> kind-kind
+
+Have a <span class="token function">nice</span> day<span class="token operator">!</span> 👋</code></pre>
+<p>Now copy the contents of the <code>~/.kube/config</code> file or ensure the <code>KUBECONFIG</code> environment variable points to the correct location.</p>
+<p>Run <code>teleskopio config</code>, which prints a sample config to stdout.</p>
+<p>Generate a user with hashed password and add it to the <code>config.yaml</code>.</p>
+<pre class="language-shell" tabindex="0"><code class="language-shell"><span class="token operator">></span> htpasswd <span class="token parameter variable">-nbB</span> admin MySecret12345
+$ admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$GUduJJ9FF</span>.WA8J4zl4vJ4OfKuoszAPJ2iqMt6BcPoQ8kZ3wGy<span class="token punctuation">..</span>n.</code></pre>
+<h4 id="run-2">Run</h4>
 <p>Run <code>teleskopio --config=./config.yaml</code>.</p>
-<p><video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./helm-integration.mp4"></video></p>
-<p>In this video, we've run a bunch of <code>helm install/uninstall</code> commands in another terminal. In the <code>teleskopio</code> web UI, we can open the manifests of a Helm release by double‑clicking the release column.</p>
-<h4 id="under-the-hood-2">Under the hood</h4>
-<p>From the backend side, the realization is pretty simple and built on top of the <a href="https://helm.sh/docs/sdk/">Helm Go SDK</a>.
-We have a Kubernetes client initialized, and with that client we can initialize the Helm client.</p>
-<p>Here is an example:</p>
-<pre class="language-go" tabindex="0"><code class="language-go">flags <span class="token operator">:=</span> genericclioptions<span class="token punctuation">.</span><span class="token function">NewConfigFlags</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
-<span class="token comment">// Spoof kube config on the fly</span>
-flags<span class="token punctuation">.</span>WrapConfigFn <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token boolean">_</span> <span class="token operator">*</span>rest<span class="token punctuation">.</span>Config<span class="token punctuation">)</span> <span class="token operator">*</span>rest<span class="token punctuation">.</span>Config <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> r<span class="token punctuation">.</span><span class="token function">GetCluster</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span>Server<span class="token punctuation">)</span><span class="token punctuation">.</span>RestConfig
-<span class="token punctuation">}</span>
-actionConfig <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>action<span class="token punctuation">.</span>Configuration<span class="token punctuation">)</span>
-err <span class="token operator">:=</span> actionConfig<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span>flags<span class="token punctuation">,</span> ns<span class="token punctuation">,</span> <span class="token string">"secret"</span><span class="token punctuation">,</span> slog<span class="token punctuation">.</span><span class="token function">Default</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Info<span class="token punctuation">)</span>
-<span class="token comment">// Handle error</span>
-
-list <span class="token operator">:=</span> action<span class="token punctuation">.</span><span class="token function">NewList</span><span class="token punctuation">(</span>actionConfig<span class="token punctuation">)</span>
-list<span class="token punctuation">.</span>All <span class="token operator">=</span> <span class="token boolean">true</span>
-
-rels<span class="token punctuation">,</span> err <span class="token operator">:=</span> list<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// rels is a helm releases slice</span></code></pre>
-<p>After listing Helm releases, we create a Kubernetes shared index informer and watch <code>Secret</code> resources.</p>
-<blockquote>
-<p>A Kubernetes shared index informer is a mechanism in the client-go library for efficiently watching, listing, and caching Kubernetes resources, with the added ability to create custom indexes for fast data retrieval. It is the foundation for building Kubernetes controllers and operators.</p>
-</blockquote>
-<p>That's because of <code>helm</code> nature.</p>
-<blockquote>
-<p>Helm stores release metadata, including chart data and values, in Kubernetes Secrets by default.</p>
-</blockquote>
-<p>In this <code>teleskopio</code> version, the Helm backend is hardcoded to use <code>Secret</code>. Maybe we'll add more backends (<code>ConfigMap</code>, <code>sql</code>, etc.) in the future.</p>
-<p>If you want to know more, feel free to dig into the <code>teleskopio</code> source code.</p>
+<p><video controls="" loop="" autoplay="off" muted="" playsinline="" aria-labelledby="login to cluster" src="./login.mp4"></video></p>
+<p>If everything goes well, you'll see the login screen and can use the <code>user/pass</code> from the <code>config.yaml</code>.</p>
+<h4 id="deploy-a-pod-2">Deploy a pod</h4>
+<p>Let's deploy a pod to our cluster. Double click on pod. Check pod logs.</p>
+<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="open pod resource" src="deploy-pod.mp4"></video></p>
+<h4 id="multiselect-2">Multiselect</h4>
+<p>Now select a bunch of pods and delete them.</p>
+<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="delete pod resource" src="delete-pods.mp4"></video></p>
+<h4 id="scale-resources-2">Scale Resources</h4>
+<p>Let's scale a deployment. Any resource that supports scaling can be scaled.</p>
+<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="scale resources" src="scale.mp4"></video></p>
+<h4 id="cronjob-2">Cronjob</h4>
+<p>You can trigger cronjob.</p>
+<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="cronjobs" src="cronjobs.mp4"></video></p>
+<h4 id="cordon-and-drain-2">Cordon and Drain</h4>
+<p>You can cordon or drain node(s).</p>
+<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="cordon and drain" src="cordon.mp4"></video></p>
+<h4 id="theme-and-font-2">Theme and Font</h4>
+<p>Another cool feature is font and theme.</p>
+<p><video controls="" loop="" autoplay="none" muted="" playsinline="" aria-labelledby="theme and font" src="change-theme-font.mp4"></video></p>
 <p>That's a brief overview of the <code>teleskopio</code> features.</p>
-<p>Happy coding!</p>
+<p>Feel free to try it!</p>
 
 		<ul class="links-nextprev">
-				<li class="links-nextprev-prev">← Previous<br>
-					<a href="/blog/teleskopio-with-kind/">teleskopio with kind</a>
+				<li class="links-nextprev-next">Next →<br>
+					<a href="/howtos/teleskopio-helm-integration/">teleskopio helm integration</a>
 				</li>
 			
 		</ul>
@@ -693,7 +711,7 @@ rels<span class="token punctuation">,</span> err <span class="token operator">:=
 			</p>
 		</footer>
 
-		<!-- This page `/blog/teleskopio-helm-integration/` was built on 2026-02-08T07:20:50.513Z -->
+		<!-- This page `/howtos/teleskopio-with-kind/` was built on 2026-05-31T12:30:53.136Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>

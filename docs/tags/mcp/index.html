@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>teleskopio.github.io</title>
-		<meta name="description" content="teleskopio is an open-source small and beautiful Web Kubernetes client.">
+		<title>Tagged &#39;mcp&#39;</title>
+		<meta name="description" content="teleskopio a lightweight kubernetes web client">
 
 		<link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -581,24 +581,6 @@ pre[class*="language-diff-"] {
 	text-decoration: none; /* override del, ins, mark defaults */
 	color: inherit; /* override del, ins, mark defaults */
 }
-/* Message Box */
-.message-box {
-	--color-message-box: #ffc;
-
-	display: block;
-	background-color: var(--color-message-box);
-	color: var(--color-gray-90);
-	padding: 0.5em 0.625em; /* 16px 10px /16 */
-}
-.message-box ol {
-	margin-top: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-	.message-box {
-		--color-message-box: #082840;
-	}
-}
 		</style>
 
 		
@@ -618,13 +600,7 @@ pre[class*="language-diff-"] {
 							<a href="/"></a>
 						</li>
 						<li class="nav-item">
-							<a href="/configuration/">configuration</a>
-						</li>
-						<li class="nav-item">
-							<a href="/install/" aria-current="page">install</a>
-						</li>
-						<li class="nav-item">
-							<a href="/blog/">blog</a>
+							<a href="/howtos/">howtos</a>
 						</li>
 					<li class="nav-item">
 						<!-- Place this tag where you want the button to render. -->
@@ -635,114 +611,20 @@ pre[class*="language-diff-"] {
 
 		<main id="main">
 			<heading-anchors>
+				<h1 id="tagged-mcp">Tagged “mcp”</h1>
+
+
+<ol reversed="" class="postlist" style="--postlist-index: 2">
+		<li class="postlist-item">
+			<a href="/howtos/mcp-server/" class="postlist-link">
+				teleskopio MCP server
 				
-<div class="message-box">
-	<p>
-		<em class="small">This is a <b>beta</b> version. Information may be inaccurate or incomplete, and the software is provided "as is."</em>
-	</p>
-</div>
+			</a>
+			<time class="postlist-date" datetime="2026-05-31">May 2026</time>
+		</li>
+</ol>
 
-
-<h3 id="install">Install</h3>
-<h4 id="linux"><a href="#linux-2">Linux</a></h4>
-<h4 id="macos"><a href="#macos-2">MacOS</a></h4>
-<h4 id="docker"><a href="#docker-2">Docker</a></h4>
-<h4 id="helm"><a href="#helm-2">Helm</a></h4>
-<h4 id="linux-2">Linux</h4>
-<p>Download <a href="https://github.com/teleskopio/teleskopio/releases">release</a>.</p>
-<h4 id="macos-2">MacOS</h4>
-<p>Use brew (ARM and Intel):</p>
-<ol>
-<li><code>brew tap teleskopio/homebrew-teleskopio</code></li>
-<li><code>brew install --cask teleskopio</code></li>
-</ol>
-<h4 id="docker-2">Docker</h4>
-<ol>
-<li>Pull docker image from <a href="https://github.com/teleskopio/teleskopio/pkgs/container/teleskopio">Packages</a></li>
-</ol>
-<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">docker</span> pull ghcr.io/teleskopio/teleskopio:latest</code></pre>
-<ol start="2">
-<li>Generate config</li>
-</ol>
-<pre class="language-sh" tabindex="0"><code class="language-sh"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--rm</span> ghcr.io/teleskopio/teleskopio:latest config <span class="token operator">></span> config.yaml</code></pre>
-<ol start="3">
-<li>Edit config</li>
-</ol>
-<pre class="language-sh" tabindex="0"><code class="language-sh">$ htpasswd <span class="token parameter variable">-nbB</span> admin MySecret123 <span class="token comment"># apache2-utils</span>
-<span class="token operator">></span> admin:<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$U7puDu7wKOMP6i4eI1nO4ux909bH8FuPadEQq2oxx7SRXrBh3xJIG</span>
-<span class="token function">vim</span> config.yaml <span class="token comment"># edit confAig and add admin user</span>
-<span class="token comment"># add kubeconfig content to kube.configs</span>
-<span class="token comment"># check example in config.yaml</span></code></pre>
-<ol start="4">
-<li>Run</li>
-</ol>
-<p>Run with <code>--network=host</code> if you're using kind cluster</p>
-<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--rm</span> <span class="token parameter variable">--network</span><span class="token operator">=</span>host <span class="token parameter variable">-p</span> <span class="token number">3080</span>:3080 <span class="token punctuation">\</span>
-  <span class="token parameter variable">-v</span> <span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/config.yaml:/usr/bin/config.yaml ghcr.io/teleskopio/teleskopio:latest <span class="token punctuation">\</span>
-  <span class="token parameter variable">--config</span><span class="token operator">=</span>/usr/bin/config.yaml</code></pre>
-<p>Or run with docker network</p>
-<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">--rm</span> <span class="token parameter variable">-p</span> <span class="token number">3080</span>:3080 <span class="token punctuation">\</span>
-  <span class="token parameter variable">-v</span> <span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/config.yaml:/usr/bin/config.yaml ghcr.io/teleskopio/teleskopio:latest <span class="token punctuation">\</span>
-  <span class="token parameter variable">--config</span><span class="token operator">=</span>/usr/bin/config.yaml
-<span class="token number">5</span>:47AM INF <span class="token builtin class-name">set</span> loglevel <span class="token assign-left variable">level</span><span class="token operator">=</span>DEBUG
-<span class="token number">5</span>:47AM INF version <span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token string">""</span>
-<span class="token number">5</span>:47AM INF initialize web server <span class="token assign-left variable">addr</span><span class="token operator">=</span>:3080
-<span class="token punctuation">..</span>.</code></pre>
-<h4 id="helm-2">Helm</h4>
-<p>Right now only building <code>helm</code> package from sources install option available.</p>
-<p><a href="https://github.com/teleskopio/teleskopio">Clone repository</a>. Run <code>make build-helm-chart</code> (<code>helm</code> binary in <code>PATH</code> is required.)</p>
-<p>Check out <code>helm</code> chart  <a href="https://github.com/teleskopio/teleskopio/blob/master/deploy/teleskopio/values.yaml"><code>values.yaml</code></a>.</p>
-<p>By default <code>RBAC's</code> for <code>teleskopio</code> give access to <strong>all cluster and to any kind of operation</strong>.</p>
-<pre class="language-bash" tabindex="0"><code class="language-bash">$ <span class="token function">git</span> clone git@github.com:teleskopio/teleskopio.git
-$ <span class="token builtin class-name">cd</span> teleskopio
-$ <span class="token function">make</span> build-helm-char
-helm package ./deploy/teleskopio
-Successfully packaged chart and saved it to: /home/dev/teleskopio/teleskopio-0.1.4.tgz
-<span class="token comment"># Add you own config.yaml</span>
-$ <span class="token function">cat</span> config.yaml
-service:
-  type: ClusterIP
-  port: <span class="token number">3090</span>
-
-config:
-  name: config
-  content:
-    log_color: <span class="token boolean">false</span>
-    log_json: <span class="token boolean">true</span>
-    log_level: INFO
-    server_http: <span class="token string">":3090"</span>
-    jwt_key: <span class="token string">"b2436e01424c714e4583f2f2851a0e1304440157"</span> <span class="token comment"># openssl rand -hex 20</span>
-    auth_disabled: <span class="token boolean">false</span>
-    users:
-      - username: admin
-        password: <span class="token string">"<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$PgEhSAwkE0RlbYiJqSxF</span>/e529Xu5HGey.cEY/qqoksLlFckk3kaiW"</span> <span class="token comment"># htpasswd -nbB admin MySecret123</span>
-        role: <span class="token string">"admin"</span>
-      - username: user
-        password: <span class="token string">"<span class="token variable">$2y</span><span class="token variable">$05</span><span class="token variable">$PgEhSAwkE0RlbYiJqSxF</span>/e529Xu5HGey.cEY/qqoksLlFckk3kaiW"</span>
-        role: <span class="token string">"viewer"</span>
-    kube:
-      configs:
-<span class="token comment"># Install local helm chart with own values.yaml</span>
-$ helm <span class="token function">install</span> teleskopio ./teleskopio-0.1.4.tgz <span class="token parameter variable">-f</span> values.yaml
-NAME: teleskopio
-LAST DEPLOYED: Sun Feb  <span class="token number">1</span> <span class="token number">15</span>:39:52 <span class="token number">2026</span>
-NAMESPACE: default
-STATUS: deployed
-REVISION: <span class="token number">1</span>
-DESCRIPTION: Install complete
-NOTES:
-<span class="token number">1</span>. Get the application URL by running these commands:
-  <span class="token builtin class-name">export</span> <span class="token assign-left variable">POD_NAME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>kubectl get pods <span class="token parameter variable">--namespace</span> default <span class="token parameter variable">-l</span> <span class="token string">"app.kubernetes.io/name=teleskopio,app.kubernetes.io/instance=teleskopio"</span> <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">"{.items[0].metadata.name}"</span><span class="token variable">)</span></span>
-  <span class="token builtin class-name">export</span> <span class="token assign-left variable">CONTAINER_PORT</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>kubectl get pod <span class="token parameter variable">--namespace</span> default $POD_NAME <span class="token parameter variable">-o</span> <span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token string">"{.spec.containers[0].ports[0].containerPort}"</span><span class="token variable">)</span></span>
-  <span class="token builtin class-name">echo</span> <span class="token string">"Visit http://127.0.0.1:8080 to use your application"</span>
-  kubectl <span class="token parameter variable">--namespace</span> default port-forward <span class="token variable">$POD_NAME</span> <span class="token number">8080</span>:<span class="token variable">$CONTAINER_PORT</span>
-
-<span class="token comment"># Follow NOTES instruction and use port-forward</span>
-$ kubectl <span class="token parameter variable">--namespace</span> default port-forward <span class="token variable">$POD_NAME</span> <span class="token number">8080</span>:<span class="token variable">$CONTAINER_PORT</span>
-Forwarding from <span class="token number">127.0</span>.0.1:8080 -<span class="token operator">></span> <span class="token number">3090</span>
-Forwarding from <span class="token punctuation">[</span>::1<span class="token punctuation">]</span>:8080 -<span class="token operator">></span> <span class="token number">3090</span></code></pre>
-<p>Open <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>.</p>
-<p>Happy coding!</p>
+<p>See <a href="/tags/">all tags</a>.</p>
 
 			</heading-anchors>
 		</main>
@@ -754,7 +636,7 @@ Forwarding from <span class="token punctuation">[</span>::1<span class="token pu
 			</p>
 		</footer>
 
-		<!-- This page `/install/` was built on 2026-02-08T07:20:50.513Z -->
+		<!-- This page `/tags/mcp/` was built on 2026-05-31T12:30:53.167Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>
