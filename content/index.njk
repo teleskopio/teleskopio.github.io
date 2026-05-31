@@ -76,7 +76,7 @@ docker run -it --rm ghcr.io/teleskopio/teleskopio:latest config > config.yaml
 ```sh
 $ htpasswd -nbB admin MySecret123 # apache2-utils
 > admin:$2y$05$U7puDu7wKOMP6i4eI1nO4ux909bH8FuPadEQq2oxx7SRXrBh3xJIG
-vim config.yaml # edit confAig and add admin user
+vim config.yaml # edit config and add admin user
 # add kubeconfig content to kube.configs
 # check example in config.yaml
 ```
@@ -178,7 +178,7 @@ jwt_key: "super-salt" # salt for JWT token  `openssl rand -hex 20`
 jwt_token_expire: 1h # how long jwt token is valid (1h by default)
 auth_disabled: false # set to true to disable auth completly
 mcp:
-  enabled: false
+  enabled: false # mcp server is disabled by default
   api_key: "somekey" # protect /mcp server with api_key
   api_key_header: "X-MCP" # header key e.g. (X-MCP: somekey)
   cors: # cors settings for /mcp endpoint, in case if the client in another web app

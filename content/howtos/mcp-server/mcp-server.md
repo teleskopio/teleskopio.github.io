@@ -41,7 +41,7 @@ CONTAINER ID   IMAGE                  COMMAND                  CREATED      STAT
 74a462cbf7de   kindest/node:v1.35.0   "/usr/local/bin/entr…"   4 days ago   Up 2 hours   127.0.0.1:50025->6443/tcp   kind-control-plane
 ```
 
-Run teleskopio with `mcp.enabled = true`, (the way teleskopio [is deployed doesnt matter](https://teleskopio.github.io/install/#install), it can be in the docker, on the host, by helm).
+Run teleskopio with `mcp.enabled = true`, (the way teleskopio [is deployed doesnt matter](https://teleskopio.github.io/#install), it can be in the docker, on the host, by helm).
 
 ```sh
 cat config.yaml | yq .mcp
