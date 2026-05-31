@@ -23,7 +23,7 @@
 /* Theme colors */
 :root {
 	--color-gray-20: #e0e0e0;
-	--color-gray-50: #C0C0C0;
+	--color-gray-50: #c0c0c0;
 	--color-gray-90: #333;
 
 	--background-color: #f6f6f6;
@@ -44,16 +44,15 @@
 		background-color: var(--color-code-gray-90);
 		color: var(--color-code-gray-30);
 		word-break: break-all;
-	    border-radius: 2px;
+		border-radius: 2px;
 	}
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
 		--color-gray-20: #e0e0e0;
-		--color-gray-50: #C0C0C0;
+		--color-gray-50: #c0c0c0;
 		--color-gray-90: #dad8d8;
-
 
 		--color-code-gray-90: #676767;
 		--color-code-gray-30: #dcdcdc;
@@ -68,7 +67,10 @@
 		--background-color: #15202b;
 	}
 
-	.github, .linkedin, .stackoverflow, .rss {
+	.github,
+	.linkedin,
+	.stackoverflow,
+	.rss {
 		fill: white;
 	}
 
@@ -79,7 +81,6 @@
 		border-radius: 2px;
 	}
 }
-
 
 /* Global stylesheet */
 * {
@@ -102,7 +103,7 @@ html {
 	overflow-y: scroll;
 }
 body {
-	max-width: 40em;
+	max-width: 50em;
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -117,16 +118,16 @@ body {
 }
 
 /* Fluid images via https://www.zachleat.com/web/fluid-images/ */
-img{
-  max-width: 100%;
+img {
+	max-width: 100%;
 }
 img[width][height] {
-  height: auto;
+	height: auto;
 }
 img[src$=".svg"] {
-  width: 100%;
-  height: auto;
-  max-width: none;
+	width: 100%;
+	height: auto;
+	max-width: none;
 }
 video,
 iframe {
@@ -192,7 +193,7 @@ header {
 .links-nextprev {
 	display: flex;
 	justify-content: space-between;
-	gap: .5em 1em;
+	gap: 0.5em 1em;
 	list-style: "";
 	border-top: 1px dashed var(--color-gray-20);
 	padding: 1em 0;
@@ -217,8 +218,8 @@ code {
 	font-family: var(--font-family-monospace);
 }
 pre:not([class*="language-"]) {
-    font-family: var(--font-family-monospace);
-	margin: .5em 0;
+	font-family: var(--font-family-monospace);
+	margin: 0.5em 0;
 	line-height: 1.375; /* 22px /16 */
 	-moz-tab-size: var(--syntax-tab-size);
 	-o-tab-size: var(--syntax-tab-size);
@@ -258,7 +259,7 @@ header {
 /* Nav */
 .nav {
 	display: flex;
-	gap: .5em 1em;
+	gap: 0.5em 1em;
 	padding: 0;
 	margin: 0;
 	list-style: none;
@@ -313,8 +314,8 @@ ul.nav {
 	font-size: 1.1875em; /* 19px /16 */
 	font-weight: 700;
 	flex-basis: calc(100% - 1.5rem);
-	padding-left: .25em;
-	padding-right: .5em;
+	padding-left: 0.25em;
+	padding-right: 0.5em;
 	text-underline-position: from-font;
 	text-underline-offset: 0;
 	text-decoration-thickness: 1px;
@@ -339,7 +340,7 @@ ul.nav {
 .post-metadata {
 	display: inline-flex;
 	flex-wrap: wrap;
-	gap: .5em;
+	gap: 0.5em;
 	list-style: none;
 	padding: 0;
 	margin: 0;
@@ -353,7 +354,7 @@ ul.nav {
 }
 
 heading-anchors > details > ul {
-  padding-left: 1em;
+	padding-left: 1em;
 }
 
 .github-link {
@@ -364,10 +365,10 @@ heading-anchors > details > ul {
 pre,
 code {
 	font-family: var(--font-family-monospace);
-    /* border-radius: 5px; */
+	/* border-radius: 5px; */
 	white-space: nowrap;
 	padding: 2px 2px 2px 2px;
-    font-size: 0.8em;
+	font-size: 0.8em;
 }
 code[class*="language-"] {
 	padding: 0px;
@@ -377,11 +378,11 @@ pre,
 code[class*="language-"] {
 	font-family: var(--font-family-monospace) !important;
 	line-height: 1; /* 22px /16 */
-    font-size: 0.9em;
+	font-size: 0.9em;
 }
 
 pre:not([class*="language-"]) {
-	margin: .5em 0;
+	margin: 0.5em 0;
 	line-height: 1.225; /* 22px /16 */
 	font-family: var(--font-family-monospace) !important;
 	-moz-tab-size: var(--syntax-tab-size);
@@ -398,20 +399,20 @@ pre:not([class*="language-"]) {
 }
 
 .media-main {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 10px;
-  max-width: 600px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding: 10px;
+	max-width: 600px;
 }
 
 .media-main img {
-  max-width: 150px;
-  height: auto;
+	max-width: 150px;
+	height: auto;
 }
 
 .text-content {
-  flex: 1;
+	flex: 1;
 }
 /**
  * okaidia theme for JavaScript, CSS and HTML
@@ -691,7 +692,7 @@ rels<span class="token punctuation">,</span> err <span class="token operator">:=
 			</p>
 		</footer>
 
-		<!-- This page `/howtos/teleskopio-helm-integration/` was built on 2026-05-31T12:34:56.854Z -->
+		<!-- This page `/howtos/teleskopio-helm-integration/` was built on 2026-05-31T12:48:46.922Z -->
 		<script type="module" src="/dist/cC8wS6ZjFU.js"></script>
 		<script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 	</body>
