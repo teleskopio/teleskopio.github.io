@@ -4,11 +4,19 @@ date: 2026-05-31
 tags: ["mcp", "llm", "kubernetes", "kind", "howtos"]
 ---
 
-This guide is based on my article [The teleskopio MCP Server and llama.cpp](https://rkiselenko.dev/blog/teleskopio-mcp/).
+<style>
+	{% include "css/message-box.css" %}
+</style>
+<div class="message-box">
+	<p>
+		This guide is based on my article <a href="https://rkiselenko.dev/blog/teleskopio-mcp/">The teleskopio MCP Server and llama.cpp</a>
+	</p>
+</div>
 
 The teleskopio build around Kubernetes watchers and Dynamic resources, hence there is no hardcoded schema and required kubernetes version to work with, all resources loaded at runtime and updated by events subscriptions. The same api are under the hood of MCP integration.
 
-First MVP integration is 3 tools, 1 prompt and completion accourding to the [modelcontextprotocol](https://modelcontextprotocol.io/docs/getting-started/intro).
+There are 3 tools (`clusters, api_resources, get_resources`), 2 prompts (`pods_diagnosis, nodes_diagnosis`) and completion accourding to the [modelcontextprotocol](https://modelcontextprotocol.io/docs/getting-started/intro).
+
 As an MCP client I'm going to use [llama.cpp](https://github.com/ggml-org/llama.cpp) because it has a very robust MCP and tools integration.
 
 Lets start (my host is MacOS):
@@ -40,7 +48,7 @@ cat config.yaml | yq .mcp
 enabled: true
 ```
 
-3. Spin up llama.cpp server with `Qwen3.6-27B-GGUF-8bit` model and add teleskopio mcp server (use llama-mcp-proxy enabled).
+Spin up llama.cpp server with `Qwen3.6-27B-GGUF-8bit` model and add teleskopio mcp server (use llama-mcp-proxy enabled).
 
 ```sh
 llama-server --port 8083 \
@@ -103,6 +111,7 @@ Here is the report:
 ---
 
 ### 🔴 1. `bad-image-pod-example`
+
 - **Namespace:** `default`
 - **Phase:** `Pending`
 - **Issue:** `ImagePullBackOff`
@@ -111,6 +120,7 @@ Here is the report:
 - **Recommendation:** Correct the image name/tag in the pod/deployment spec. If using a private registry, verify attached pull secrets.
 
 ### 🟠 2. `failed-command-example`
+
 - **Namespace:** `default`
 - **Phase:** `Failed`
 - **Issue:** Container terminated with `Exit Code 1` (`Error`)
@@ -118,6 +128,7 @@ Here is the report:
 - **Recommendation:** This is an application/command configuration error, not a cluster issue. Review and correct the container's `command` or `args`.
 
 ### 🟠 3. `another-example`
+
 - **Namespace:** `kube-system`
 - **Phase:** `Failed`
 - **Issue:** Container terminated with `Exit Code 1` (`Error`)
@@ -127,11 +138,11 @@ Here is the report:
 ---
 
 ### 📊 Summary
+
 - **ImagePullBackOff:** 1 pod (invalid image name)
 - **Failed/Exit Error:** 2 pods (explicit `exit 1` command)
 - **No detections for:** `CrashLoopBackOff`, `OOMKilled`, `FailedScheduling`, `Unhealthy`, or `BackOff` in this scan.
 - **Action Required:** Fix image name for `bad-image-pod-example` and review container commands for the two `Failed` pods.
-
 ```
 
 ### Conclusion
