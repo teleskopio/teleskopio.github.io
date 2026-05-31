@@ -148,7 +148,7 @@ Here is the report:
 ### Conclusion
 
 TBH I'm impressed, right now the MCP protocol (<small>[it's still doubthfull does we need this protocol?](https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/)</small>) is pretty robust to build wonderfull things. The teleskopio MCP server are harmless and able to perform only simple tasks, but it's strong enough to use it in everyday job. :thinking:
-The MCP server is not merged yet and need a bunch of improvments but I think I'll release it soon.
+The MCP server has been merged and available in since v0.1.6 teleskopio version.
 
 ### Credits
 
